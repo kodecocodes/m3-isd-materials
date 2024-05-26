@@ -46,9 +46,17 @@ struct DogListView: View {
             .foregroundStyle(.tint)
           Text(dog.name)
         }
-        .navigationTitle("Good Dogs")
+        .font(.title)
       }
+      .navigationTitle("Good Dogs")
       .padding()
+      .toolbar {
+        ToolbarItem(placement: .topBarTrailing) {
+          Button("Add New Dog", systemImage: "plus") {
+            //NewDogView()
+          }
+        }
+      }
     }
   }
 }
