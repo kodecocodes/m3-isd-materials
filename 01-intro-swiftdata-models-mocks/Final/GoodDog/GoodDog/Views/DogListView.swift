@@ -34,23 +34,26 @@ import SwiftUI
 import SwiftData
 
 struct DogListView: View {
-    
-    @Query private var dogs: [DogModel]
   
-    var body: some View {
-        List(dogs) { dog in
-            HStack {
-                Image(systemName: "dog")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
-                Text(dog.name)
-            }
-            .padding()
+  @Query private var dogs: [DogModel]
+  
+  var body: some View {
+    NavigationStack {
+      List(dogs) { dog in
+        HStack {
+          Image(systemName: "dog")
+            .imageScale(.large)
+            .foregroundStyle(.tint)
+          Text(dog.name)
         }
+        .navigationTitle("Good Dogs")
+      }
+      .padding()
     }
+  }
 }
 
 #Preview {
-    DogListView()
-        .modelContainer(DogModel.preview)
+  DogListView()
+    .modelContainer(DogModel.preview)
 }
