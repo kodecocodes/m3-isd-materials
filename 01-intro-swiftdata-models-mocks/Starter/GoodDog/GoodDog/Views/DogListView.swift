@@ -41,6 +41,7 @@ struct DogListView: View {
                 .foregroundStyle(.tint)
             Text("Mac the dog")
         }
+        .font(.title)
         .padding()
     }
 }
