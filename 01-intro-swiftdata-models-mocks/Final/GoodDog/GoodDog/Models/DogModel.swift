@@ -55,3 +55,17 @@ class DogModel {
     self.breed = breed
   }
 }
+
+extension DogModel {
+  @MainActor
+  static var preview: ModelContainer {
+    let container = try! ModelContainer(for: DogModel.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
+    
+    container.mainContext.insert(DogModel(name: "Mac", age: 11, weight: 90))
+    container.mainContext.insert(DogModel(name: "Sorcha", age: 1, weight: 40))
+    container.mainContext.insert(DogModel(name: "Violet", age: 4, weight: 85))
+    container.mainContext.insert(DogModel(name: "Kirby", age: 10, weight: 95))
+
+    return container
+  }
+}
