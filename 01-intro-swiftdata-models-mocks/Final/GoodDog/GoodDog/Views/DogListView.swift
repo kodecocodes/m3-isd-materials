@@ -31,8 +31,11 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import SwiftData
 
 struct DogListView: View {
+    
+    @Query private var dogs: [DogModel]
   
     var body: some View {
         HStack {
