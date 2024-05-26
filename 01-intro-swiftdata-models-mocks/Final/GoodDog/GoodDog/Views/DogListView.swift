@@ -38,16 +38,19 @@ struct DogListView: View {
     @Query private var dogs: [DogModel]
   
     var body: some View {
-        HStack {
-            Image(systemName: "dog")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Mac the dog")
+        List(dogs) { dog in
+            HStack {
+                Image(systemName: "dog")
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                Text(dog.name)
+            }
+            .padding()
         }
-        .padding()
     }
 }
 
 #Preview {
     DogListView()
+        .modelContainer(DogModel.preview)
 }
