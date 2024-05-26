@@ -31,12 +31,14 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import SwiftData
 
 @main
 struct GoodDogApp: App {
     var body: some Scene {
         WindowGroup {
             DogListView()
+                .modelContainer(for: DogModel.self)
         }
     }
 }
