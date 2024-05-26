@@ -30,13 +30,28 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import SwiftUI
+import Foundation
+import SwiftData
 
-@main
-struct GoodDogApp: App {
-    var body: some Scene {
-        WindowGroup {
-            DogListView()
-        }
-    }
+@Model
+class DogModel {
+  var name: String
+  var age: Int
+  var weight: Int
+  var color: String?
+  var breed: String?
+  
+  init(
+    name: String,
+    age: Int,
+    weight: Int,
+    color: String? = nil,
+    breed: String? = nil
+  ) {
+    self.name = name
+    self.age = age
+    self.weight = weight
+    self.color = color
+    self.breed = breed
+  }
 }

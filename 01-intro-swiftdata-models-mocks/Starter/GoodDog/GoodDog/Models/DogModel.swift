@@ -31,9 +31,7 @@
 /// THE SOFTWARE.
 
 import Foundation
-import SwiftData
 
-@Model
 class DogModel {
   var name: String
   var age: Int

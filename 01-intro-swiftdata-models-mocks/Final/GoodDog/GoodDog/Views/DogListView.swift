@@ -32,11 +32,19 @@
 
 import SwiftUI
 
-@main
-struct GoodDogApp: App {
-    var body: some Scene {
-        WindowGroup {
-            DogListView()
+struct DogListView: View {
+  
+    var body: some View {
+        HStack {
+            Image(systemName: "dog")
+                .imageScale(.large)
+                .foregroundStyle(.tint)
+            Text("Mac the dog")
         }
+        .padding()
     }
+}
+
+#Preview {
+    DogListView()
 }
