@@ -53,7 +53,7 @@ struct DogListView: View {
       .toolbar {
         ToolbarItem(placement: .topBarTrailing) {
           Button("Add New Dog", systemImage: "plus") {
-            //NewDogView()
+
           }
         }
       }
