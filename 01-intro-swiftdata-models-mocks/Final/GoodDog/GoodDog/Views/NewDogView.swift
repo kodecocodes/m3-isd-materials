@@ -34,6 +34,7 @@ import SwiftUI
 
 struct NewDogView: View {
   @Environment(\.modelContext) private var modelContext
+  @Environment(\.dismiss) private var dismiss
   @State var name: String
   
   var body: some View {
@@ -48,6 +49,7 @@ struct NewDogView: View {
           Button("Create") {
             let newDog = DogModel(name: name)
             modelContext.insert(newDog)
+            dismiss()
           }
         }
         .frame(maxWidth: .infinity, alignment: .trailing)
@@ -59,7 +61,7 @@ struct NewDogView: View {
       .toolbar{
         ToolbarItem (placement: .topBarLeading) {
           Button("Cancel") {
-
+            dismiss()
           }
         }
       }
