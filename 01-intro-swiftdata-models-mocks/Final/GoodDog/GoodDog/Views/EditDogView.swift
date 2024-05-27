@@ -35,8 +35,23 @@ import PhotosUI
 
 struct EditDogView: View {
   
+  @Environment(\.dismiss) private var dismiss
+  @State private var name: String = ""
+  @State private var age: Int = 0
+  @State private var weight: Int = 0
+  @State private var color: String = ""
+  @State private var breed: String = ""
   @State private var image: Data?
   @State var selectedPhoto: PhotosPickerItem?
+  // check if any values are changed
+  var changed: Bool {
+    name != name
+    || age != age
+    || weight != weight
+    || color != color
+    || breed != breed
+    || image != image
+  }
   
   var body: some View {
     ScrollView {
@@ -72,7 +87,48 @@ struct EditDogView: View {
                 }
               }
             }
+            LabeledContent {
+              TextField("", text: $name)
+            } label: {
+              Text("Dog Name")
+                .foregroundStyle(.secondary)
+            }
+            LabeledContent {
+              TextField("", value: $age, format: .number)
+            } label: {
+              Text("Dog Age")
+                .foregroundStyle(.secondary)
+            }
+            LabeledContent {
+              TextField("", value: $weight, format: .number)
+            } label: {
+              Text("Dog Weight")
+                .foregroundStyle(.secondary)
+            }
+            LabeledContent {
+              TextField("", text: $color)
+            } label: {
+              Text("Color")
+                .foregroundStyle(.secondary)
+            }
+            LabeledContent {
+              TextField("", text: $breed)
+            } label: {
+              Text("Breed")
+                .foregroundStyle(.secondary)
+            }
           }
+        }
+      }
+      .textFieldStyle(.roundedBorder)
+      .navigationTitle(name)
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        if changed {
+          Button("Update") {
+            dismiss()
+          }
+          .buttonStyle(.borderedProminent)
         }
       }
     }
