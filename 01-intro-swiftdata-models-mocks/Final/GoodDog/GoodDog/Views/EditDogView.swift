@@ -135,6 +135,11 @@ struct EditDogView: View {
       .toolbar {
         if changed {
           Button("Update") {
+            dog.name = name
+            dog.age = age
+            dog.weight = weight
+            dog.color = color
+            dog.breed = breed
             dismiss()
           }
           .buttonStyle(.borderedProminent)
