@@ -32,10 +32,12 @@
 
 import SwiftUI
 import PhotosUI
+import SwiftData
 
 struct EditDogView: View {
   
   @Environment(\.dismiss) private var dismiss
+  @Bindable var dog: DogModel
   @State private var name: String = ""
   @State private var age: Int = 0
   @State private var weight: Int = 0
@@ -123,6 +125,14 @@ struct EditDogView: View {
       .textFieldStyle(.roundedBorder)
       .navigationTitle(name)
       .navigationBarTitleDisplayMode(.inline)
+      // MARK: onAppear
+      .onAppear {
+        name = dog.name
+        age = dog.age ?? 0
+        weight = dog.weight ?? 0
+        color = dog.color ?? ""
+        breed = dog.breed ?? ""
+      }
       .toolbar {
         if changed {
           Button("Update") {
