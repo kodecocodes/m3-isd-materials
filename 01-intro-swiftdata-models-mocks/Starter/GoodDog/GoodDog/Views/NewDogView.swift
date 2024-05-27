@@ -33,7 +33,6 @@
 import SwiftUI
 
 struct NewDogView: View {
-  @Environment(\.modelContext) private var modelContext
   
   @State var name: String
   @State var age: Int
@@ -51,8 +50,7 @@ struct NewDogView: View {
         }
         Section {
           Button("Create") {
-            let newDog = DogModel(name: name, age: age, weight: weight)
-            modelContext.insert(newDog)
+            
           }
         }
         .frame(maxWidth: .infinity, alignment: .trailing)
