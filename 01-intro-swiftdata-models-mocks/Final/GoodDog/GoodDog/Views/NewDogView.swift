@@ -31,42 +31,43 @@
 /// THE SOFTWARE.
 
 import SwiftUI
-import SwiftData
 
-struct DogListView: View {
-  
-  @Query private var dogs: [DogModel]
-  @State private var showingNewDogScreen = false
+struct NewDogView: View {
+  @Environment(\.modelContext) private var modelContext
+  @State var name: String
   
   var body: some View {
-    NavigationStack {
-      List(dogs) { dog in
-        HStack {
-          Image(systemName: "dog")
-            .imageScale(.large)
-            .foregroundStyle(.tint)
-          Text(dog.name)
-        }
-        .font(.title)
-      }
-      .navigationTitle("Good Dogs")
-      .padding()
-      .toolbar {
-        ToolbarItem(placement: .topBarTrailing) {
-          Button("Add New Dog", systemImage: "plus") {
-            showingNewDogScreen = true
+    NavigationStack{
+      List {
+        Section {
+          VStack {
+            TextField("Dog Name", text: $name)
           }
         }
+        Section {
+          Button("Create") {
+            let newDog = DogModel(name: name)
+            modelContext.insert(newDog)
+          }
+        }
+        .frame(maxWidth: .infinity, alignment: .trailing)
+        .buttonStyle(.borderedProminent)
+        .disabled(name.isEmpty)
       }
-      .sheet(isPresented: $showingNewDogScreen) {
-        NewDogView(name: "")
-          .presentationDetents([.medium, .large])
+      .navigationTitle("New Dog")
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar{
+        ToolbarItem (placement: .topBarLeading) {
+          Button("Cancel") {
+
+          }
+        }
       }
     }
   }
 }
 
 #Preview {
-  DogListView()
+  NewDogView(name: "Mac")
     .modelContainer(DogModel.preview)
 }
