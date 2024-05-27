@@ -47,12 +47,11 @@ struct EditDogView: View {
   @State var selectedPhoto: PhotosPickerItem?
   // check if any values are changed
   var changed: Bool {
-    name != name
-    || age != age
-    || weight != weight
-    || color != color
-    || breed != breed
-    || image != image
+    name != dog.name
+    || age != dog.age
+    || weight != dog.weight
+    || color != dog.color
+    || breed != dog.breed
   }
   
   var body: some View {
