@@ -35,19 +35,23 @@ import SwiftData
 
 struct DogListView: View {
   
+  @Environment(\.modelContext) private var modelContext
   @Query private var dogs: [DogModel]
   @State private var showingNewDogScreen = false
   
   var body: some View {
     NavigationStack {
-      List(dogs) { dog in
-        HStack {
-          Image(systemName: "dog")
-            .imageScale(.large)
-            .foregroundStyle(.tint)
-          Text(dog.name)
+      List {
+        ForEach(dogs) { dog in
+          HStack {
+            Image(systemName: "dog")
+              .imageScale(.large)
+              .foregroundStyle(.tint)
+            Text(dog.name)
+          }
+          .font(.title)
         }
-        .font(.title)
+        .onDelete(perform:dogToDelete)
       }
       .navigationTitle("Good Dogs")
       .padding()
@@ -62,6 +66,11 @@ struct DogListView: View {
         NewDogView(name: "")
           .presentationDetents([.medium, .large])
       }
+    }
+  }
+  func dogToDelete(indexSet: IndexSet) {
+    for index in indexSet {
+      modelContext.delete(dogs[index])
     }
   }
 }
