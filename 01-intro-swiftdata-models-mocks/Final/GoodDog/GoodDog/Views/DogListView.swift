@@ -43,13 +43,17 @@ struct DogListView: View {
     NavigationStack {
       List {
         ForEach(dogs) { dog in
-          HStack {
-            Image(systemName: "dog")
-              .imageScale(.large)
-              .foregroundStyle(.tint)
-            Text(dog.name)
+          NavigationLink {
+            EditDogView(dog: dog)
+          } label: {
+            HStack {
+              Image(systemName: "dog")
+                .imageScale(.large)
+                .foregroundStyle(.tint)
+              Text(dog.name)
+            }
+            .font(.title)
           }
-          .font(.title)
         }
         .onDelete(perform:dogToDelete)
       }
