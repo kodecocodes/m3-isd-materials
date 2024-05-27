@@ -52,7 +52,7 @@ struct EditDogView: View {
     || weight != dog.weight
     || color != dog.color
     || breed != dog.breed
-    || image != image
+    || image != dog.image
   }
   
   var body: some View {
