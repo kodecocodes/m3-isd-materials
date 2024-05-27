@@ -41,4 +41,8 @@ struct GoodDogApp: App {
                 .modelContainer(for: DogModel.self)
         }
     }
+  
+  init() {
+    print(URL.applicationSupportDirectory.path(percentEncoded: false))
+  }
 }
