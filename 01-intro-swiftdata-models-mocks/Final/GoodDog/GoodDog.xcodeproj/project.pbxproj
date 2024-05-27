@@ -12,7 +12,7 @@
 		2A1242032BF05FB3001792C7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A1242022BF05FB3001792C7 /* Assets.xcassets */; };
 		2A1242072BF05FB3001792C7 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2A1242062BF05FB3001792C7 /* Preview Assets.xcassets */; };
 		2A12420F2BF05FF2001792C7 /* DogModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A12420E2BF05FF2001792C7 /* DogModel.swift */; };
-		2ABBBC8E2C03E19E00065BB8 /* NewDogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBBC8D2C03E19E00065BB8 /* NewDogView.swift */; };
+		2ABBBC922C042ECC00065BB8 /* NewDogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBBC912C042ECC00065BB8 /* NewDogView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,7 +24,7 @@
 		2A1242062BF05FB3001792C7 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		2A12420E2BF05FF2001792C7 /* DogModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogModel.swift; sourceTree = "<group>"; };
 		2AA231352C030BEE003A9DC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
-		2ABBBC8D2C03E19E00065BB8 /* NewDogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NewDogView.swift; path = ../../../../Starter/GoodDog/GoodDog/Views/NewDogView.swift; sourceTree = "<group>"; };
+		2ABBBC912C042ECC00065BB8 /* NewDogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewDogView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,7 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				2A1242002BF05FB1001792C7 /* DogListView.swift */,
-				2ABBBC8D2C03E19E00065BB8 /* NewDogView.swift */,
+				2ABBBC912C042ECC00065BB8 /* NewDogView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -165,7 +165,7 @@
 			files = (
 				2A1242012BF05FB1001792C7 /* DogListView.swift in Sources */,
 				2A1241FF2BF05FB1001792C7 /* GoodDogApp.swift in Sources */,
-				2ABBBC8E2C03E19E00065BB8 /* NewDogView.swift in Sources */,
+				2ABBBC922C042ECC00065BB8 /* NewDogView.swift in Sources */,
 				2A12420F2BF05FF2001792C7 /* DogModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
