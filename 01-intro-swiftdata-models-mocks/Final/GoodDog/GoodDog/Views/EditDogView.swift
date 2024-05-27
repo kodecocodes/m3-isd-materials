@@ -146,5 +146,9 @@ struct EditDogView: View {
 }
 
 #Preview {
-  EditDogView()
+  let container = try! ModelContainer(for: DogModel.self)
+  let dog = DogModel(name: "Mac", age: 11, weight: 90, color: "Yellow", breed: "Labrador Retriever")
+  
+  return EditDogView(dog: dog)
+    .modelContainer(container)
 }
