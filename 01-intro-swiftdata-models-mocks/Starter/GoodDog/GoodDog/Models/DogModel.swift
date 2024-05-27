@@ -34,15 +34,15 @@ import Foundation
 
 class DogModel {
   var name: String
-  var age: Int
-  var weight: Int
+  var age: Int?
+  var weight: Int?
   var color: String?
   var breed: String?
   
   init(
     name: String,
-    age: Int,
-    weight: Int,
+    age: Int = 0,
+    weight: Int = 0,
     color: String? = nil,
     breed: String? = nil
   ) {
