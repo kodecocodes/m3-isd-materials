@@ -52,6 +52,7 @@ struct EditDogView: View {
     || weight != dog.weight
     || color != dog.color
     || breed != dog.breed
+    || image != image
   }
   
   var body: some View {
@@ -131,6 +132,13 @@ struct EditDogView: View {
         weight = dog.weight ?? 0
         color = dog.color ?? ""
         breed = dog.breed ?? ""
+        image = dog.image
+      }
+      .task(id: selectedPhoto) {
+       // the photo picker has a protocol to convert to Data or whatever
+       if let data = try? await selectedPhoto?.loadTransferable(type: Data.self) {
+         image = data
+       }
       }
       .toolbar {
         if changed {
@@ -140,6 +148,7 @@ struct EditDogView: View {
             dog.weight = weight
             dog.color = color
             dog.breed = breed
+            dog.image = image
             dismiss()
           }
           .buttonStyle(.borderedProminent)

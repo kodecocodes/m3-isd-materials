@@ -40,19 +40,22 @@ class DogModel {
   var weight: Int?
   var color: String?
   var breed: String?
+  @Attribute(.externalStorage) var image: Data?
   
   init(
     name: String,
     age: Int = 0,
     weight: Int = 0,
     color: String? = nil,
-    breed: String? = nil
+    breed: String? = nil,
+    image: Data? = nil
   ) {
     self.name = name
     self.age = age
     self.weight = weight
     self.color = color
     self.breed = breed
+    self.image = image
   }
 }
 
@@ -61,10 +64,10 @@ extension DogModel {
   static var preview: ModelContainer {
     let container = try! ModelContainer(for: DogModel.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
     
-    container.mainContext.insert(DogModel(name: "Mac", age: 11, weight: 90))
-    container.mainContext.insert(DogModel(name: "Sorcha", age: 1, weight: 40))
-    container.mainContext.insert(DogModel(name: "Violet", age: 4, weight: 85))
-    container.mainContext.insert(DogModel(name: "Kirby", age: 10, weight: 95))
+    container.mainContext.insert(DogModel(name: "Mac", age: 11, weight: 90, image: nil))
+    container.mainContext.insert(DogModel(name: "Sorcha", age: 1, weight: 40, image: nil))
+    container.mainContext.insert(DogModel(name: "Violet", age: 4, weight: 85, image: nil))
+    container.mainContext.insert(DogModel(name: "Kirby", age: 10, weight: 95, image: nil))
 
     return container
   }
