@@ -35,8 +35,6 @@ import SwiftUI
 struct NewDogView: View {
   
   @State var name: String
-  @State var age: Int
-  @State var weight: Int
   
   var body: some View {
     NavigationStack{
@@ -44,8 +42,6 @@ struct NewDogView: View {
         Section {
           VStack {
             TextField("Dog Name", text: $name)
-            TextField("Age", value: $age, format: .number)
-            TextField("Weight (lbs.)", value: $weight, format: .number)
           }
         }
         Section {
@@ -71,5 +67,5 @@ struct NewDogView: View {
 }
 
 #Preview {
-  NewDogView(name: "Mac", age: 11, weight: 90)
+  NewDogView(name: "Mac")
 }
