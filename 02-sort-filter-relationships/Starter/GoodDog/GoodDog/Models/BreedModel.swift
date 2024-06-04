@@ -34,7 +34,6 @@ import Foundation
 
 class BreedModel {
   var name: String
-  var dogs: [DogModel]?
   
   init(name: String) {
     self.name = name
