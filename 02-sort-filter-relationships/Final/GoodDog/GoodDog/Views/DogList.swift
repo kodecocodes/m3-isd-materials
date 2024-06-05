@@ -35,7 +35,8 @@ import SwiftData
 
 struct DogList: View {
   @Environment(\.modelContext) private var modelContext
-  @Query(sort: \DogModel.name, order: .reverse) private var dogs: [DogModel]
+  @Query(sort: [SortDescriptor(\DogModel.age, order: .reverse),
+      SortDescriptor(\DogModel.name)]) private var dogs: [DogModel]
   
     var body: some View {
       List {
