@@ -22,6 +22,7 @@
 		2ADC4A6F2C10025B00A54EE5 /* BreedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC4A682C10025B00A54EE5 /* BreedListView.swift */; };
 		2ADC4A702C10025B00A54EE5 /* EditBreedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC4A692C10025B00A54EE5 /* EditBreedView.swift */; };
 		2ADC4A712C10025B00A54EE5 /* NewBreedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC4A6A2C10025B00A54EE5 /* NewBreedView.swift */; };
+		2ADC4A752C10068F00A54EE5 /* DogList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC4A742C10068F00A54EE5 /* DogList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		2ADC4A682C10025B00A54EE5 /* BreedListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreedListView.swift; sourceTree = "<group>"; };
 		2ADC4A692C10025B00A54EE5 /* EditBreedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBreedView.swift; sourceTree = "<group>"; };
 		2ADC4A6A2C10025B00A54EE5 /* NewBreedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBreedView.swift; sourceTree = "<group>"; };
+		2ADC4A742C10068F00A54EE5 /* DogList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				2A1242002BF05FB1001792C7 /* DogListView.swift */,
 				2ABBBC932C04577C00065BB8 /* EditDogView.swift */,
 				2ABBBC912C042ECC00065BB8 /* NewDogView.swift */,
+				2ADC4A742C10068F00A54EE5 /* DogList.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 				2ADC4A702C10025B00A54EE5 /* EditBreedView.swift in Sources */,
 				2A359B3D2C0D847C00E2DC7C /* BreedModel.swift in Sources */,
 				2A1242012BF05FB1001792C7 /* DogListView.swift in Sources */,
+				2ADC4A752C10068F00A54EE5 /* DogList.swift in Sources */,
 				2A1241FF2BF05FB1001792C7 /* GoodDogApp.swift in Sources */,
 				2ADC4A6D2C10025B00A54EE5 /* ParkStackView.swift in Sources */,
 				2ABBBC922C042ECC00065BB8 /* NewDogView.swift in Sources */,
