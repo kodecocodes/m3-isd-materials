@@ -16,6 +16,12 @@
 		2A359B3F2C0D84BA00E2DC7C /* ParkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A359B3E2C0D84BA00E2DC7C /* ParkModel.swift */; };
 		2ABBBC922C042ECC00065BB8 /* NewDogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBBC912C042ECC00065BB8 /* NewDogView.swift */; };
 		2ABBBC942C04577C00065BB8 /* EditDogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABBBC932C04577C00065BB8 /* EditDogView.swift */; };
+		2ADC4A6C2C10025B00A54EE5 /* NewParkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC4A642C10025B00A54EE5 /* NewParkView.swift */; };
+		2ADC4A6D2C10025B00A54EE5 /* ParkStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC4A652C10025B00A54EE5 /* ParkStackView.swift */; };
+		2ADC4A6E2C10025B00A54EE5 /* ParksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC4A662C10025B00A54EE5 /* ParksView.swift */; };
+		2ADC4A6F2C10025B00A54EE5 /* BreedListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC4A682C10025B00A54EE5 /* BreedListView.swift */; };
+		2ADC4A702C10025B00A54EE5 /* EditBreedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC4A692C10025B00A54EE5 /* EditBreedView.swift */; };
+		2ADC4A712C10025B00A54EE5 /* NewBreedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC4A6A2C10025B00A54EE5 /* NewBreedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,6 +37,12 @@
 		2AA231352C030BEE003A9DC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2ABBBC912C042ECC00065BB8 /* NewDogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewDogView.swift; sourceTree = "<group>"; };
 		2ABBBC932C04577C00065BB8 /* EditDogView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditDogView.swift; sourceTree = "<group>"; };
+		2ADC4A642C10025B00A54EE5 /* NewParkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewParkView.swift; sourceTree = "<group>"; };
+		2ADC4A652C10025B00A54EE5 /* ParkStackView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParkStackView.swift; sourceTree = "<group>"; };
+		2ADC4A662C10025B00A54EE5 /* ParksView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParksView.swift; sourceTree = "<group>"; };
+		2ADC4A682C10025B00A54EE5 /* BreedListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BreedListView.swift; sourceTree = "<group>"; };
+		2ADC4A692C10025B00A54EE5 /* EditBreedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBreedView.swift; sourceTree = "<group>"; };
+		2ADC4A6A2C10025B00A54EE5 /* NewBreedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBreedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +75,8 @@
 		2A1241FD2BF05FB1001792C7 /* GoodDog */ = {
 			isa = PBXGroup;
 			children = (
+				2ADC4A6B2C10025B00A54EE5 /* Breeds */,
+				2ADC4A672C10025B00A54EE5 /* Parks */,
 				2AA231352C030BEE003A9DC7 /* Info.plist */,
 				2A1242102BF06084001792C7 /* Views */,
 				2A12420D2BF05FC2001792C7 /* Models */,
@@ -100,6 +114,26 @@
 				2ABBBC912C042ECC00065BB8 /* NewDogView.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		2ADC4A672C10025B00A54EE5 /* Parks */ = {
+			isa = PBXGroup;
+			children = (
+				2ADC4A642C10025B00A54EE5 /* NewParkView.swift */,
+				2ADC4A652C10025B00A54EE5 /* ParkStackView.swift */,
+				2ADC4A662C10025B00A54EE5 /* ParksView.swift */,
+			);
+			path = Parks;
+			sourceTree = "<group>";
+		};
+		2ADC4A6B2C10025B00A54EE5 /* Breeds */ = {
+			isa = PBXGroup;
+			children = (
+				2ADC4A682C10025B00A54EE5 /* BreedListView.swift */,
+				2ADC4A692C10025B00A54EE5 /* EditBreedView.swift */,
+				2ADC4A6A2C10025B00A54EE5 /* NewBreedView.swift */,
+			);
+			path = Breeds;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -173,12 +207,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A359B3F2C0D84BA00E2DC7C /* ParkModel.swift in Sources */,
+				2ADC4A702C10025B00A54EE5 /* EditBreedView.swift in Sources */,
 				2A359B3D2C0D847C00E2DC7C /* BreedModel.swift in Sources */,
 				2A1242012BF05FB1001792C7 /* DogListView.swift in Sources */,
 				2A1241FF2BF05FB1001792C7 /* GoodDogApp.swift in Sources */,
+				2ADC4A6D2C10025B00A54EE5 /* ParkStackView.swift in Sources */,
 				2ABBBC922C042ECC00065BB8 /* NewDogView.swift in Sources */,
+				2ADC4A6F2C10025B00A54EE5 /* BreedListView.swift in Sources */,
 				2A12420F2BF05FF2001792C7 /* DogModel.swift in Sources */,
+				2ADC4A712C10025B00A54EE5 /* NewBreedView.swift in Sources */,
 				2ABBBC942C04577C00065BB8 /* EditDogView.swift in Sources */,
+				2ADC4A6E2C10025B00A54EE5 /* ParksView.swift in Sources */,
+				2ADC4A6C2C10025B00A54EE5 /* NewParkView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

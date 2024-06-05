@@ -64,11 +64,56 @@ extension DogModel {
   static var preview: ModelContainer {
     let container = try! ModelContainer(for: DogModel.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
     
-    container.mainContext.insert(DogModel(name: "Mac", age: 11, weight: 90, image: nil))
-    container.mainContext.insert(DogModel(name: "Sorcha", age: 1, weight: 40, image: nil))
-    container.mainContext.insert(DogModel(name: "Violet", age: 4, weight: 85, image: nil))
-    container.mainContext.insert(DogModel(name: "Kirby", age: 10, weight: 95, image: nil))
-
+    container.mainContext.insert(
+      DogModel(
+        name: "Mac",
+        age: 11,
+        weight: 90,
+        color: "Yellow",
+        breed: "Labrador Retreiver",
+        image: nil
+      )
+    )
+    container.mainContext.insert(
+      DogModel(
+        name: "Sorcha",
+        age: 1,
+        weight: 40,
+        color: "Yellow",
+        breed: "Golden Retreiver",
+        image: nil
+      )
+    )
+    container.mainContext.insert(
+      DogModel(
+        name: "Violet",
+        age: 4,
+        weight: 85,
+        color: "Gray",
+        breed: "Bouvier",
+        image: nil
+      )
+    )
+    container.mainContext.insert(
+      DogModel(
+        name: "Kirby",
+        age: 10,
+        weight: 95,
+        color: "Fox Red",
+        breed: "Labrador Retreiver",
+        image: nil
+      )
+    )
+    container.mainContext.insert(
+      DogModel(
+        name: "Priscilla",
+        age: 17,
+        weight: 65,
+        color: "White",
+        breed: "Mixed",
+        image: nil
+      )
+    )
     return container
   }
 }
