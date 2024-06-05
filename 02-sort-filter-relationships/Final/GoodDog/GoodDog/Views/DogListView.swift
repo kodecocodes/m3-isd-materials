@@ -38,10 +38,11 @@ struct DogListView: View {
   @Environment(\.modelContext) private var modelContext
   @Query private var dogs: [DogModel]
   @State private var showingNewDogScreen = false
+  @State private var sortOrder = SortOrder.name
 
   var body: some View {
     NavigationStack {
-        DogList()
+      DogList(sortOrder: sortOrder)
       .navigationTitle("Good Dogs")
       .padding()
       .toolbar {
