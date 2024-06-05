@@ -36,6 +36,8 @@ import SwiftData
 struct DogList: View {
   @Environment(\.modelContext) private var modelContext
   @Query private var dogs: [DogModel]
+  @State private var message = ""
+  @State private var dogCount = 0
   
   init(sortOrder: SortOrder, filterString: String) {
     let sortDescriptors: [SortDescriptor<DogModel>] = switch sortOrder {
@@ -54,26 +56,40 @@ struct DogList: View {
   }
   
     var body: some View {
-      List {
-        ForEach(dogs) { dog in
-          NavigationLink {
-            EditDogView(dog: dog)
-          } label: {
-            HStack {
-              Image(systemName: "dog")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-              VStack(alignment: .leading) {
-                Text(dog.name)
-                  .font(.title2)
-                Text("age: \(String(describing: dog.age ?? 0))")
-                  .font(.footnote)
+      Group {
+        if !dogs.isEmpty {
+          List {
+            ForEach(dogs) { dog in
+              NavigationLink {
+                EditDogView(dog: dog)
+              } label: {
+                HStack {
+                  Image(systemName: "dog")
+                    .imageScale(.large)
+                    .foregroundStyle(.tint)
+                  VStack(alignment: .leading) {
+                    Text(dog.name)
+                      .font(.title2)
+                    Text("age: \(String(describing: dog.age ?? 0))")
+                      .font(.footnote)
+                  }
+                }
+                .font(.title)
               }
             }
-            .font(.title)
+            .onDelete(perform:dogToDelete)
           }
+        } else {
+          ContentUnavailableView(message, systemImage: "dog")
         }
-        .onDelete(perform:dogToDelete)
+      }
+      .onAppear() {
+        dogCount = dogs.count
+        if dogCount == 0 {
+          message = "Enter a dog."
+        } else {
+          message = "No dogs found."
+        }
       }
     }
   func dogToDelete(indexSet: IndexSet) {
