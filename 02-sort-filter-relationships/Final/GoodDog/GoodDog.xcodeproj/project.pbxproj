@@ -23,6 +23,7 @@
 		2ADC4A702C10025B00A54EE5 /* EditBreedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC4A692C10025B00A54EE5 /* EditBreedView.swift */; };
 		2ADC4A712C10025B00A54EE5 /* NewBreedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC4A6A2C10025B00A54EE5 /* NewBreedView.swift */; };
 		2ADC4A752C10068F00A54EE5 /* DogList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC4A742C10068F00A54EE5 /* DogList.swift */; };
+		2ADC4A782C101D4500A54EE5 /* SortOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ADC4A772C101D4500A54EE5 /* SortOrder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		2ADC4A692C10025B00A54EE5 /* EditBreedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditBreedView.swift; sourceTree = "<group>"; };
 		2ADC4A6A2C10025B00A54EE5 /* NewBreedView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewBreedView.swift; sourceTree = "<group>"; };
 		2ADC4A742C10068F00A54EE5 /* DogList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogList.swift; sourceTree = "<group>"; };
+		2ADC4A772C101D4500A54EE5 /* SortOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOrder.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 		2A1241FD2BF05FB1001792C7 /* GoodDog */ = {
 			isa = PBXGroup;
 			children = (
+				2ADC4A762C101D2D00A54EE5 /* Enumerations */,
 				2ADC4A6B2C10025B00A54EE5 /* Breeds */,
 				2ADC4A672C10025B00A54EE5 /* Parks */,
 				2AA231352C030BEE003A9DC7 /* Info.plist */,
@@ -137,6 +140,14 @@
 				2ADC4A6A2C10025B00A54EE5 /* NewBreedView.swift */,
 			);
 			path = Breeds;
+			sourceTree = "<group>";
+		};
+		2ADC4A762C101D2D00A54EE5 /* Enumerations */ = {
+			isa = PBXGroup;
+			children = (
+				2ADC4A772C101D4500A54EE5 /* SortOrder.swift */,
+			);
+			path = Enumerations;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,6 +230,7 @@
 				2ABBBC922C042ECC00065BB8 /* NewDogView.swift in Sources */,
 				2ADC4A6F2C10025B00A54EE5 /* BreedListView.swift in Sources */,
 				2A12420F2BF05FF2001792C7 /* DogModel.swift in Sources */,
+				2ADC4A782C101D4500A54EE5 /* SortOrder.swift in Sources */,
 				2ADC4A712C10025B00A54EE5 /* NewBreedView.swift in Sources */,
 				2ABBBC942C04577C00065BB8 /* EditDogView.swift in Sources */,
 				2ADC4A6E2C10025B00A54EE5 /* ParksView.swift in Sources */,
