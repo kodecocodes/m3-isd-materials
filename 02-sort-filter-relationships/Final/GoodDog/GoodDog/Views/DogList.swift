@@ -48,7 +48,12 @@ struct DogList: View {
               Image(systemName: "dog")
                 .imageScale(.large)
                 .foregroundStyle(.tint)
-              Text(dog.name)
+              VStack(alignment: .leading) {
+                Text(dog.name)
+                  .font(.title2)
+                Text("age: \(String(describing: dog.age ?? 0))")
+                  .font(.footnote)
+              }
             }
             .font(.title)
           }
