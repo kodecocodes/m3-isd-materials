@@ -70,7 +70,7 @@ extension DogModel {
         age: 11,
         weight: 90,
         color: "Yellow",
-        breed: "Labrador Retreiver",
+        breed: "Labrador Retriever",
         image: nil
       )
     )
@@ -80,7 +80,7 @@ extension DogModel {
         age: 1,
         weight: 40,
         color: "Yellow",
-        breed: "Golden Retreiver",
+        breed: "Golden Retriever",
         image: nil
       )
     )
@@ -100,7 +100,7 @@ extension DogModel {
         age: 10,
         weight: 95,
         color: "Fox Red",
-        breed: "Labrador Retreiver",
+        breed: "Labrador Retriever",
         image: nil
       )
     )
