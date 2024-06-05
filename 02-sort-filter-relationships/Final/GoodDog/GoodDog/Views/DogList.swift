@@ -42,7 +42,8 @@ struct DogList: View {
     case .name:
       [SortDescriptor(\DogModel.name)]
     case .age:
-      [SortDescriptor(\DogModel.age)]
+      [SortDescriptor(\DogModel.age),
+       SortDescriptor(\DogModel.name)]
     }
     _dogs = Query(sort: sortDescriptors)
   }

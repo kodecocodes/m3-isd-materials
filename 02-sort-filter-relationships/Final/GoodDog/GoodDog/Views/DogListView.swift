@@ -56,6 +56,19 @@ struct DogListView: View {
         NewDogView(name: "")
           .presentationDetents([.medium, .large])
       }
+      .toolbar {
+        ToolbarItem {
+          Menu("Sort", systemImage: "arrow.up.arrow.down") {
+            Picker("Sort Dogs", selection: $sortOrder) {
+              ForEach(SortOrder.allCases) { sortOrder in
+                Text("Sort By: \(String(describing: sortOrder))").tag(sortOrder)
+              }
+            }
+            .buttonStyle(.bordered)
+            .pickerStyle(.inline)
+          }
+        }
+      }
     }
   }
 }
