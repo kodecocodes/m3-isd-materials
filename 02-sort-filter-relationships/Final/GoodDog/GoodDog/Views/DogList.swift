@@ -35,7 +35,10 @@ import SwiftData
 
 struct DogList: View {
   @Environment(\.modelContext) private var modelContext
-  @Query private var dogs: [DogModel]
+  //@Query private var dogs: [DogModel]
+  @Query(filter: #Predicate<DogModel> { dog in
+      dog.breed == "Labrador Retriever"
+    }) private var dogs: [DogModel]
   
   init(sortOrder: SortOrder) {
     let sortDescriptors: [SortDescriptor<DogModel>] = switch sortOrder {
@@ -45,7 +48,7 @@ struct DogList: View {
       [SortDescriptor(\DogModel.age),
        SortDescriptor(\DogModel.name)]
     }
-    _dogs = Query(sort: sortDescriptors)
+    //_dogs = Query(sort: sortDescriptors)
   }
   
     var body: some View {
