@@ -39,10 +39,12 @@ struct DogListView: View {
   @Query private var dogs: [DogModel]
   @State private var showingNewDogScreen = false
   @State private var sortOrder = SortOrder.name
+  @State private var filter = ""
 
   var body: some View {
     NavigationStack {
-      DogList(sortOrder: sortOrder)
+      DogList(sortOrder: sortOrder, filterString: filter)
+        .searchable(text: $filter, prompt: Text("Filter on name or breed"))
       .navigationTitle("Good Dogs")
       .padding()
       .toolbar {

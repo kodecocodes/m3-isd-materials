@@ -35,12 +35,9 @@ import SwiftData
 
 struct DogList: View {
   @Environment(\.modelContext) private var modelContext
-  //@Query private var dogs: [DogModel]
-  @Query(filter: #Predicate<DogModel> { dog in
-      dog.breed == "Labrador Retriever"
-    }) private var dogs: [DogModel]
+  @Query private var dogs: [DogModel]
   
-  init(sortOrder: SortOrder) {
+  init(sortOrder: SortOrder, filterString: String) {
     let sortDescriptors: [SortDescriptor<DogModel>] = switch sortOrder {
     case .name:
       [SortDescriptor(\DogModel.name)]
@@ -48,7 +45,12 @@ struct DogList: View {
       [SortDescriptor(\DogModel.age),
        SortDescriptor(\DogModel.name)]
     }
-    //_dogs = Query(sort: sortDescriptors)
+    let predicate = #Predicate<DogModel> { dog in
+      dog.breed?.localizedStandardContains(filterString) ?? false
+      || dog.name.localizedStandardContains(filterString)
+      || filterString.isEmpty
+    }
+    _dogs = Query(filter: predicate, sort: sortDescriptors)
   }
   
     var body: some View {
@@ -82,6 +84,6 @@ struct DogList: View {
 }
 
 #Preview {
-  DogList(sortOrder: .name)
+  DogList(sortOrder: .name, filterString: "")
     .modelContainer(DogModel.preview)
 }
