@@ -132,6 +132,15 @@ struct EditDogView: View {
               .buttonStyle(.borderedProminent)
             }
           }
+          VStack {
+            if let parks = dog.parks {
+              ViewThatFits {
+                ScrollView(.horizontal, showsIndicators: false) {
+                  ParkStackView(parks: parks)
+                }
+              }
+            }
+          }
         }
       }
       .sheet(isPresented: $showBreeds) {

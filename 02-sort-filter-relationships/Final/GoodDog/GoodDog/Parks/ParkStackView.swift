@@ -6,13 +6,16 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct ParkStackView: View {
+  @Environment(\.modelContext) private var modelContext
+  var parks: [ParkModel]
   
   var body: some View {
     HStack {
-      ForEach(1...4, id: \.self) { park in
-        Text("Dock Park")
+      ForEach(parks) { park in
+        Text(park.name)
           .font(.caption)
           .foregroundColor(.white)
           .padding(5)
@@ -24,5 +27,12 @@ struct ParkStackView: View {
 }
 
 #Preview {
-  ParkStackView()
+  let container = try! ModelContainer(for: DogModel.self)
+  let riverdale = ParkModel(name: "Riverdale Park")
+  let withrow = ParkModel(name: "Withrow Park")
+  let greenwood = ParkModel(name: "Greewood Park")
+  let parks = [riverdale, withrow, greenwood]
+  
+  return ParkStackView(parks: parks)
+    .modelContainer(container)
 }
