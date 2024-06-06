@@ -39,7 +39,8 @@ class DogModel {
   var age: Int?
   var weight: Int?
   var color: String?
-  var breed: String?
+  //@Relationship(inverse: \BreedModel.name) // this is inferred
+  var breed: BreedModel? = nil
   @Attribute(.externalStorage) var image: Data?
   
   init(
@@ -47,7 +48,7 @@ class DogModel {
     age: Int = 0,
     weight: Int = 0,
     color: String? = nil,
-    breed: String? = nil,
+    breed: BreedModel? = nil,
     image: Data? = nil
   ) {
     self.name = name
@@ -64,56 +65,61 @@ extension DogModel {
   static var preview: ModelContainer {
     let container = try! ModelContainer(for: DogModel.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
     
-    container.mainContext.insert(
-      DogModel(
-        name: "Mac",
-        age: 11,
-        weight: 90,
-        color: "Yellow",
-        breed: "Labrador Retriever",
-        image: nil
-      )
+    // breeds
+    let labrador = BreedModel(name: "Labrador Retriever")
+    let golden = BreedModel(name: "Golden Retriever")
+    let bouvier = BreedModel(name: "Bouvier")
+    let mixed = BreedModel(name: "Mixed")
+    
+    // dogs
+    let macDog = DogModel(
+      name: "Mac",
+      age: 11,
+      weight: 90,
+      color: "Yellow",
+      breed: labrador,
+      image: nil
     )
-    container.mainContext.insert(
-      DogModel(
-        name: "Sorcha",
-        age: 1,
-        weight: 40,
-        color: "Yellow",
-        breed: "Golden Retriever",
-        image: nil
-      )
+    let sorcha = DogModel(
+      name: "Sorcha",
+      age: 1,
+      weight: 40,
+      color: "Yellow",
+      breed: golden,
+      image: nil
     )
-    container.mainContext.insert(
-      DogModel(
-        name: "Violet",
-        age: 4,
-        weight: 85,
-        color: "Gray",
-        breed: "Bouvier",
-        image: nil
-      )
+    let violet = DogModel(
+      name: "Violet",
+      age: 4,
+      weight: 85,
+      color: "Gray",
+      breed: bouvier,
+      image: nil
     )
-    container.mainContext.insert(
-      DogModel(
-        name: "Kirby",
-        age: 10,
-        weight: 95,
-        color: "Fox Red",
-        breed: "Labrador Retriever",
-        image: nil
-      )
+    let kirby = DogModel(
+      name: "Kirby",
+      age: 11,
+      weight: 95,
+      color: "Fox Red",
+      breed: labrador,
+      image: nil
     )
-    container.mainContext.insert(
-      DogModel(
-        name: "Priscilla",
-        age: 17,
-        weight: 65,
-        color: "White",
-        breed: "Mixed",
-        image: nil
-      )
+    let priscilla = DogModel(
+      name: "Priscilla",
+      age: 17,
+      weight: 65,
+      color: "White",
+      breed: mixed,
+      image: nil
     )
+    
+    
+    container.mainContext.insert(macDog)
+    container.mainContext.insert(sorcha)
+    container.mainContext.insert(violet)
+    container.mainContext.insert(kirby)
+    container.mainContext.insert(priscilla)
+
     return container
   }
 }
