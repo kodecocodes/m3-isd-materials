@@ -48,7 +48,7 @@ struct DogList: View {
        SortDescriptor(\DogModel.name)]
     }
     let predicate = #Predicate<DogModel> { dog in
-      dog.breed?.localizedStandardContains(filterString) ?? false
+      dog.breed?.name.localizedStandardContains(filterString) ?? false
       || dog.name.localizedStandardContains(filterString)
       || filterString.isEmpty
     }

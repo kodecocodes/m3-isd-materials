@@ -42,7 +42,7 @@ struct EditDogView: View {
   @State private var age: Int = 0
   @State private var weight: Int = 0
   @State private var color: String = ""
-  @State private var breed: String = ""
+  @State private var breed: BreedModel?
   @State private var image: Data?
   @State var selectedPhoto: PhotosPickerItem?
   // check if any values are changed
@@ -114,7 +114,7 @@ struct EditDogView: View {
                 .foregroundStyle(.secondary)
             }
             LabeledContent {
-              TextField("", text: $breed)
+          //    TextField("", text: $breed)
             } label: {
               Text("Breed")
                 .foregroundStyle(.secondary)
@@ -131,7 +131,7 @@ struct EditDogView: View {
         age = dog.age ?? 0
         weight = dog.weight ?? 0
         color = dog.color ?? ""
-        breed = dog.breed ?? ""
+        breed = dog.breed
         image = dog.image
       }
       .task(id: selectedPhoto) {
@@ -160,7 +160,12 @@ struct EditDogView: View {
 
 #Preview {
   let container = try! ModelContainer(for: DogModel.self)
-  let dog = DogModel(name: "Mac", age: 11, weight: 90, color: "Yellow", breed: "Labrador Retriever")
+  let dog = DogModel(
+    name: "Mac",
+    age: 11,
+    weight: 90,
+    color: "Yellow"
+  )
   
   return EditDogView(dog: dog)
     .modelContainer(container)
