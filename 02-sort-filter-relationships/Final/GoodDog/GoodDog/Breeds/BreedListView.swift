@@ -31,10 +31,13 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import SwiftData
 
 struct BreedListView: View {
   @Environment(\.dismiss) private var dismiss
   @State private var showingNewBreedScreen = false
+  @Environment(\.modelContext) private var modelContext
+  @Query(sort: \BreedModel.name) private var breeds: [BreedModel]
   
   var body: some View {
     NavigationStack {
@@ -68,4 +71,5 @@ struct BreedListView: View {
 
 #Preview {
   BreedListView()
+    .modelContainer(DogModel.preview)
 }
