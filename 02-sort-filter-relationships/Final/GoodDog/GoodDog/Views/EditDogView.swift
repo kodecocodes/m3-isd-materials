@@ -45,7 +45,8 @@ struct EditDogView: View {
   @State private var breed: BreedModel?
   @State private var image: Data?
   @State private var showBreeds = false
-  
+  @State private var showParks = false
+
   @State var selectedPhoto: PhotosPickerItem?
   // check if any values are changed
   var changed: Bool {
@@ -124,6 +125,12 @@ struct EditDogView: View {
               .buttonStyle(.borderedProminent)
             }
             // MARK: - Parks
+            VStack {
+              Button("Parks", systemImage: "tree") {
+                showParks.toggle()
+              }
+              .buttonStyle(.borderedProminent)
+            }
           }
         }
       }
@@ -131,6 +138,10 @@ struct EditDogView: View {
         BreedListView()
           .presentationDetents([.large])
       }
+      .sheet(isPresented: $showParks) {
+        ParksView(dog: dog)
+          .presentationDetents([.large])
+      }      
       .textFieldStyle(.roundedBorder)
       .navigationTitle(name)
       .navigationBarTitleDisplayMode(.inline)
