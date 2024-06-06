@@ -40,7 +40,7 @@ class DogModel {
   var weight: Int?
   var color: String?
   //@Relationship(inverse: \BreedModel.name) // this is inferred
-  var breed: BreedModel? = nil
+  var breed: BreedModel?
   @Attribute(.externalStorage) var image: Data?
   
   init(
