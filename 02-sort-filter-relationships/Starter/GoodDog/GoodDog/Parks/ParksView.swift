@@ -32,11 +32,14 @@ struct ParksView: View {
               .font(.caption)
               .foregroundStyle(.secondary)
           }
-        }
+      }
       .navigationTitle("My Dog's parks")
+      .sheet(isPresented: $newPark) {
+        NewParkView()
       }
     }
   }
+}
 
 
 
