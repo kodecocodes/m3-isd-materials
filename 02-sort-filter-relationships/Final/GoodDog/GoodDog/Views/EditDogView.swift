@@ -115,7 +115,7 @@ struct EditDogView: View {
               Text("Color")
                 .foregroundStyle(.secondary)
             }
-            // MARK: - Parks
+            // MARK: - Breeds
             HStack {
               BreedPicker(selectedBreed: $breed)
               Button("Edit Breeds") {
