@@ -34,6 +34,8 @@ struct ParksView: View {
           }
         }
       .navigationTitle("My Dog's parks")
+      .sheet(isPresented: $newPark) {
+        NewParkView()
       }
     }
   }
