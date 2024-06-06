@@ -43,7 +43,11 @@ struct BreedListView: View {
     NavigationStack {
       List{
         ForEach(breeds) { breed in
-          Text(breed.name)
+          NavigationLink{
+            EditBreedView(breed: breed)
+          } label: {
+            Text(breed.name)
+          }
         }
         .onDelete(perform: breedToDelete)
       }

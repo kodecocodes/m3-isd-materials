@@ -31,10 +31,16 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import SwiftData
 
 struct EditBreedView: View {
   @Environment(\.dismiss) private var dismiss
   @State private var name: String = ""
+  @Bindable var breed: BreedModel
+  
+  var changed: Bool {
+    name != breed.name
+  }
   
     var body: some View {
       NavigationStack {
@@ -47,6 +53,9 @@ struct EditBreedView: View {
                 .foregroundStyle(.secondary)
             }
             Button ("Update Breed") {
+              if changed {
+                breed.name = name
+              }
               dismiss()
             }
             .buttonStyle(.borderedProminent)
@@ -54,11 +63,17 @@ struct EditBreedView: View {
             Spacer()
           }
           .navigationTitle("Edit Breed")
+          .task {
+            name = breed.name
+          }
         }
       }
     }
 }
 
 #Preview {
-  EditBreedView()
+  let container = try! ModelContainer(for: DogModel.self)
+  let breed = BreedModel(name: "Labrador")
+  return EditBreedView(breed: breed)
+   .modelContainer(container)
 }
