@@ -31,7 +31,9 @@
 /// THE SOFTWARE.
 
 import Foundation
+import SwiftData
 
+@Model
 class ParkModel {
   var name: String
   var dogs: [DogModel]?

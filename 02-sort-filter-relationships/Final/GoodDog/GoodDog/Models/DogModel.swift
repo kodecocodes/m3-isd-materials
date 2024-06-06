@@ -42,6 +42,7 @@ class DogModel {
   //@Relationship(inverse: \BreedModel.name) // this is inferred
   var breed: BreedModel?
   @Attribute(.externalStorage) var image: Data?
+  var parks: [ParkModel]?
   
   init(
     name: String,
@@ -49,7 +50,8 @@ class DogModel {
     weight: Int = 0,
     color: String? = nil,
     breed: BreedModel? = nil,
-    image: Data? = nil
+    image: Data? = nil,
+    parks: [ParkModel]? = nil
   ) {
     self.name = name
     self.age = age
@@ -57,6 +59,7 @@ class DogModel {
     self.color = color
     self.breed = breed
     self.image = image
+    self.parks = parks
   }
 }
 
