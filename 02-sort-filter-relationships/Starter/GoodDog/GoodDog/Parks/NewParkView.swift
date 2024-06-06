@@ -21,6 +21,7 @@ struct NewParkView: View {
             .foregroundStyle(.secondary)
         }
         Button("Add Park") {
+          // insert a ParkModel here
           dismiss()
         }
         .buttonStyle(.borderedProminent)
