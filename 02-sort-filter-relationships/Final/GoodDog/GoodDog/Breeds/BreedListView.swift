@@ -42,9 +42,10 @@ struct BreedListView: View {
   var body: some View {
     NavigationStack {
       List{
-        ForEach(1...5, id: \.self) { breed in
-          Text("Poodle")
+        ForEach(breeds) { breed in
+          Text(breed.name)
         }
+        .onDelete(perform: breedToDelete)
       }
       .navigationTitle("Breeds")
     }
@@ -65,6 +66,11 @@ struct BreedListView: View {
           dismiss()
         }
       }
+    }
+  }
+  func breedToDelete(indexSet: IndexSet) {
+    for index in indexSet {
+      modelContext.delete(breeds[index])
     }
   }
 }
