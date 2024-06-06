@@ -171,7 +171,8 @@ struct EditDogView: View {
     name: "Mac",
     age: 11,
     weight: 90,
-    color: "Yellow"
+    color: "Yellow",
+    image: UIImage(resource: .macintosh).pngData()!
   )
   
   return EditDogView(dog: dog)
