@@ -36,9 +36,16 @@ import SwiftData
 struct BreedPicker: View {
   @Query(sort: \BreedModel.name) private var breeds: [BreedModel]
   @Binding var selectedBreed: BreedModel?
-    var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+  
+  var body: some View {
+    Picker("Breed", selection: $selectedBreed) {
+      Text("Select breed").tag(nil as BreedModel?)
+      ForEach(breeds) { breed in
+        Text(breed.name).tag(Optional(breed))
+      }
     }
+    .buttonStyle(.bordered)
+  }
 }
 
 #Preview {
