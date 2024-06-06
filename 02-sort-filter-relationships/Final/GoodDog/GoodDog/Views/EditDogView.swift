@@ -44,6 +44,8 @@ struct EditDogView: View {
   @State private var color: String = ""
   @State private var breed: BreedModel?
   @State private var image: Data?
+  @State private var showBreeds = false
+  
   @State var selectedPhoto: PhotosPickerItem?
   // check if any values are changed
   var changed: Bool {
@@ -113,15 +115,19 @@ struct EditDogView: View {
               Text("Color")
                 .foregroundStyle(.secondary)
             }
-            LabeledContent {
-          //    TextField("", text: $breed)
+            HStack {
               BreedPicker(selectedBreed: $breed)
-            } label: {
-              Text("Breed")
-                .foregroundStyle(.secondary)
+              Button("Edit Breeds") {
+                showBreeds = true
+              }
+              .buttonStyle(.borderedProminent)
             }
           }
         }
+      }
+      .sheet(isPresented: $showBreeds) {
+        BreedListView()
+          .presentationDetents([.large])
       }
       .textFieldStyle(.roundedBorder)
       .navigationTitle(name)
