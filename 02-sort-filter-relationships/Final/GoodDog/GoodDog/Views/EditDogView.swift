@@ -115,6 +115,7 @@ struct EditDogView: View {
             }
             LabeledContent {
           //    TextField("", text: $breed)
+              BreedPicker(selectedBreed: $breed)
             } label: {
               Text("Breed")
                 .foregroundStyle(.secondary)
