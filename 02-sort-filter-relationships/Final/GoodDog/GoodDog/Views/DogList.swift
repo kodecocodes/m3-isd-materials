@@ -70,11 +70,13 @@ struct DogList: View {
                   VStack(alignment: .leading) {
                     Text(dog.name)
                       .font(.title2)
-                    Text("age: \(String(describing: dog.age ?? 0))")
-                      .font(.footnote)
+                    HStack {
+                      Text("age: \(String(describing: dog.age ?? 0))")
+                      Text("breed: \(String(describing: dog.breed?.name ?? ""))")
+                    }
+                    .font(.footnote)
                   }
                 }
-                .font(.title)
               }
             }
             .onDelete(perform:dogToDelete)
