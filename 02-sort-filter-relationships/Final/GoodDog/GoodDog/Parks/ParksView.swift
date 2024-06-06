@@ -102,11 +102,7 @@ struct ParksView: View {
 
 #Preview {
   let container = try! ModelContainer(for: DogModel.self)
-  let parks = [
-    ParkModel(name: "Riverdale"),
-    ParkModel(name: "Withrow")
-  ]
-  let dog = DogModel(name: "Mac", parks: parks)
+  let dog = DogModel(name: "Mac", parks: [])
   return ParksView(dog: dog)
     .modelContainer(container)
 }
