@@ -60,7 +60,7 @@ struct EditDogView: View {
   var body: some View {
     ScrollView {
       VStack(alignment: .leading) {
-        // MARK: - Item
+        // MARK: - A Dog
         GroupBox {
           Section {
             // unwrap selectedPhotoData for preview
@@ -71,7 +71,7 @@ struct EditDogView: View {
                 .scaledToFit()
                 .frame(maxWidth: .infinity, maxHeight: 300)
             }
-            //Photo Picker
+            // MARK: - Photo Picker
             HStack {
               PhotosPicker(selection: $selectedPhoto,
                            matching: .images,
@@ -115,6 +115,7 @@ struct EditDogView: View {
               Text("Color")
                 .foregroundStyle(.secondary)
             }
+            // MARK: - Parks
             HStack {
               BreedPicker(selectedBreed: $breed)
               Button("Edit Breeds") {
@@ -122,6 +123,7 @@ struct EditDogView: View {
               }
               .buttonStyle(.borderedProminent)
             }
+            // MARK: - Parks
           }
         }
       }
@@ -132,7 +134,7 @@ struct EditDogView: View {
       .textFieldStyle(.roundedBorder)
       .navigationTitle(name)
       .navigationBarTitleDisplayMode(.inline)
-      // MARK: onAppear
+      // MARK: - onAppear
       .onAppear {
         name = dog.name
         age = dog.age ?? 0
