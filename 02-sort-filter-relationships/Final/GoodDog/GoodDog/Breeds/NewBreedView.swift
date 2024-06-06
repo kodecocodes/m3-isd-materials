@@ -35,6 +35,7 @@ import SwiftUI
 struct NewBreedView: View {
   @Environment(\.dismiss) var dismiss
   @State var name = ""
+  @Environment(\.modelContext) private var modelContext
   
   var body: some View {
     NavigationStack {
@@ -46,6 +47,9 @@ struct NewBreedView: View {
             .foregroundStyle(.secondary)
         }
         Button ("Add Breed") {
+          let newBreed = BreedModel(name: name)
+          modelContext.insert(newBreed)
+          try! modelContext.save()
           dismiss()
         }
         .buttonStyle(.borderedProminent)
