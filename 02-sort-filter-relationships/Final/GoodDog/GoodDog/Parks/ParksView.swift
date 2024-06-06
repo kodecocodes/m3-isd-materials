@@ -48,7 +48,7 @@ struct ParksView: View {
           }
           LabeledContent {
             Button {
-              // addRemove will go here
+              // newPark.toggle will go here
             } label: {
               Image(systemName: "plus.circle.fill")
                 .imageScale(.large)
