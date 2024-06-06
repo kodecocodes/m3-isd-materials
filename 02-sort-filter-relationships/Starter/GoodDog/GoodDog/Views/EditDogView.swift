@@ -44,6 +44,8 @@ struct EditDogView: View {
   @State private var color: String = ""
   @State private var breed: String = ""
   @State private var image: Data?
+  @State private var showBreeds = false
+  @State private var showParks = false
   @State var selectedPhoto: PhotosPickerItem?
   // check if any values are changed
   var changed: Bool {
