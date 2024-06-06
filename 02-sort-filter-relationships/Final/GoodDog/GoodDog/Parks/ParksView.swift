@@ -45,10 +45,23 @@ struct ParksView: View {
                 Text(park.name)
               }
             }
+            .onDelete(perform: { indexSet in
+              // find the park at index
+              indexSet.forEach { index in
+                // 2. clear the local park here in the view
+                if let dogParks = dog.parks,
+                   dogParks.contains(parks[index]),
+                   let dogParkIndex = dogParks.firstIndex(where: { $0.id == parks[index].id }) {
+                  dog.parks?.remove(at: dogParkIndex)
+                }
+                // 1. remove the park in the data store, with autosave
+                modelContext.delete(parks[index])
+              }
+            })
           }
           LabeledContent {
             Button {
-              // newPark.toggle will go here
+              newPark.toggle()
             } label: {
               Image(systemName: "plus.circle.fill")
                 .imageScale(.large)
@@ -88,9 +101,9 @@ struct ParksView: View {
         // remove park if true
         // add park if false
         if dogParks.contains(park),
-            let index = dogParks.firstIndex(where: {
-              $0.id == park.id
-            }) {
+           let index = dogParks.firstIndex(where: {
+             $0.id == park.id
+           }) {
           dog.parks?.remove(at: index)
         } else {
           dog.parks?.append(park)
