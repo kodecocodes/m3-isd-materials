@@ -48,24 +48,24 @@ struct BreedListView: View {
         .onDelete(perform: breedToDelete)
       }
       .navigationTitle("Breeds")
-    }
-    .toolbar {
-      ToolbarItem(placement: .topBarTrailing) {
-        Button("Add New Breed", systemImage: "plus") {
-          showingNewBreedScreen = true
+      .toolbar {
+        ToolbarItem(placement: .topBarTrailing) {
+          Button("Add New Breed", systemImage: "plus") {
+            showingNewBreedScreen = true
+          }
         }
       }
-    }
-    .sheet(isPresented: $showingNewBreedScreen) {
-      NewBreedView()
-        .presentationDetents([.medium])
-    }
-    .toolbar {
-      ToolbarItem(placement: .topBarLeading) {
-        Button("Cancel") {
-          dismiss()
-        }
+      .sheet(isPresented: $showingNewBreedScreen) {
+        NewBreedView()
+          .presentationDetents([.medium])
       }
+      .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
+          Button("Cancel") {
+            dismiss()
+          }
+        }
+    }
     }
   }
   func breedToDelete(indexSet: IndexSet) {
