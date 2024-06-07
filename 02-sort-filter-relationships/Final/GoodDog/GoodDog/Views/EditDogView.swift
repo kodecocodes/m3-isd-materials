@@ -46,6 +46,7 @@ struct EditDogView: View {
   @State private var image: Data?
   @State private var showBreeds = false
   @State private var showParks = false
+  @State private var didAppear = false
 
   @State var selectedPhoto: PhotosPickerItem?
   // check if any values are changed
@@ -162,6 +163,8 @@ struct EditDogView: View {
         color = dog.color ?? ""
         breed = dog.breed
         image = dog.image
+
+        didAppear = true
       }
       .task(id: selectedPhoto) {
        // the photo picker has a protocol to convert to Data or whatever
@@ -170,7 +173,7 @@ struct EditDogView: View {
        }
       }
       .toolbar {
-        if changed {
+        if didAppear && changed {
           Button("Update") {
             dog.name = name
             dog.age = age
