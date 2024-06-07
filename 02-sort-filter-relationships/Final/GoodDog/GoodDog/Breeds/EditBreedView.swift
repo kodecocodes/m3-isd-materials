@@ -30,12 +30,50 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import SwiftUI
+import SwiftData
 
-class BreedModel {
-  var name: String
+struct EditBreedView: View {
+  @Environment(\.dismiss) private var dismiss
+  @State private var name: String = ""
+  @Bindable var breed: BreedModel
   
-  init(name: String) {
-    self.name = name
+  var changed: Bool {
+    name != breed.name
   }
+  
+    var body: some View {
+      NavigationStack {
+        VStack {
+          GroupBox {
+            LabeledContent {
+              TextField("", text: $name)
+            } label: {
+              Text("Breed Name")
+                .foregroundStyle(.secondary)
+            }
+            Button ("Update Breed") {
+              if changed {
+                breed.name = name
+              }
+              dismiss()
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(name.isEmpty)
+            Spacer()
+          }
+          .navigationTitle("Edit Breed")
+          .task {
+            name = breed.name
+          }
+        }
+      }
+    }
+}
+
+#Preview {
+  let container = try! ModelContainer(for: DogModel.self)
+  let breed = BreedModel(name: "Labrador")
+  return EditBreedView(breed: breed)
+   .modelContainer(container)
 }

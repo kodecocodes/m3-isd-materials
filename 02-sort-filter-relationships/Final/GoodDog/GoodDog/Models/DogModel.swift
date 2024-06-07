@@ -32,6 +32,7 @@
 
 import Foundation
 import SwiftData
+import UIKit
 
 @Model
 class DogModel {
@@ -39,16 +40,19 @@ class DogModel {
   var age: Int?
   var weight: Int?
   var color: String?
-  var breed: String?
+  //@Relationship(inverse: \BreedModel.name) // this is inferred
+  var breed: BreedModel?
   @Attribute(.externalStorage) var image: Data?
+  var parks: [ParkModel]?
   
   init(
     name: String,
     age: Int = 0,
     weight: Int = 0,
     color: String? = nil,
-    breed: String? = nil,
-    image: Data? = nil
+    breed: BreedModel? = nil,
+    image: Data? = nil,
+    parks: [ParkModel]? = nil
   ) {
     self.name = name
     self.age = age
@@ -56,6 +60,7 @@ class DogModel {
     self.color = color
     self.breed = breed
     self.image = image
+    self.parks = parks
   }
 }
 
@@ -64,10 +69,31 @@ extension DogModel {
   static var preview: ModelContainer {
     let container = try! ModelContainer(for: DogModel.self, configurations: ModelConfiguration(isStoredInMemoryOnly: true))
     
-    container.mainContext.insert(DogModel(name: "Mac", age: 11, weight: 90, image: nil))
-    container.mainContext.insert(DogModel(name: "Sorcha", age: 1, weight: 40, image: nil))
-    container.mainContext.insert(DogModel(name: "Violet", age: 4, weight: 85, image: nil))
-    container.mainContext.insert(DogModel(name: "Kirby", age: 10, weight: 95, image: nil))
+    // breeds
+    let labrador = BreedModel(name: "Labrador Retriever")
+    let golden = BreedModel(name: "Golden Retriever")
+    let bouvier = BreedModel(name: "Bouvier")
+    let mixed = BreedModel(name: "Mixed")
+    
+    let riverdale = ParkModel(name: "Riverdale Park")
+    let withrow = ParkModel(name: "Withrow Park")
+    let greenwood = ParkModel(name: "Greewood Park")
+    let hideaway = ParkModel(name: "Hideaway Park")
+    let kewBeach = ParkModel(name: "Kew Beach Off Leash Dog Park")
+    let allan = ParkModel(name: "Allan Gardens")
+
+    let macDog = DogModel(name: "Mac", age: 11, weight: 90, color: "Yellow", breed: labrador, image: UIImage(resource: .macintosh).pngData()!, parks: [riverdale, withrow, kewBeach])
+    let sorcha = DogModel(name: "Sorcha", age: 1, weight: 40, color: "Yellow", breed: golden, image: UIImage(resource: .sorcha).pngData()!, parks: [greenwood, withrow])
+    let violet = DogModel(name: "Violet", age: 4, weight: 85, color: "Gray", breed: bouvier, image: UIImage(resource: .violet).pngData()!, parks: [riverdale, withrow, hideaway])
+    let kirby = DogModel(name: "Kirby", age: 11, weight: 95, color: "Fox Red", breed: labrador, image: UIImage(resource: .kirby).pngData()!, parks: [allan, greenwood, kewBeach])
+    let priscilla = DogModel(name: "Priscilla", age: 17, weight: 65, color: "White", breed: mixed, image: nil, parks: [])
+
+    
+    container.mainContext.insert(macDog)
+    container.mainContext.insert(sorcha)
+    container.mainContext.insert(violet)
+    container.mainContext.insert(kirby)
+    container.mainContext.insert(priscilla)
 
     return container
   }

@@ -32,10 +32,9 @@
 
 import Foundation
 
-class BreedModel {
-  var name: String
-  
-  init(name: String) {
-    self.name = name
+enum SortOrder: String, Identifiable, CaseIterable {
+  case name, age
+  var id: Self {
+    self
   }
 }

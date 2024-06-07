@@ -34,10 +34,8 @@ import Foundation
 
 class ParkModel {
   var name: String
-  var dogs: [DogModel]?
   
-  init(name: String, dogs: [DogModel]? = nil) {
+  init(name: String) {
     self.name = name
-    self.dogs = dogs
   }
 }

@@ -30,12 +30,27 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import SwiftUI
+import SwiftData
 
-class BreedModel {
-  var name: String
+struct BreedPicker: View {
+  @Query(sort: \BreedModel.name) private var breeds: [BreedModel]
+  @Binding var selectedBreed: BreedModel?
   
-  init(name: String) {
-    self.name = name
+  var body: some View {
+    Picker("Breed", selection: $selectedBreed) {
+      Text("Select breed").tag(nil as BreedModel?)
+      ForEach(breeds) { breed in
+        Text(breed.name).tag(Optional(breed))
+      }
+    }
+    .buttonStyle(.bordered)
   }
+}
+
+#Preview {
+  let container = try! ModelContainer(for: DogModel.self)
+  let selectedBreed = Binding<BreedModel?>.constant(BreedModel(name: "Labrador Retriever"))
+  return BreedPicker(selectedBreed: selectedBreed)
+    .modelContainer(container)
 }

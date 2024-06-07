@@ -38,25 +38,13 @@ struct DogListView: View {
   @Environment(\.modelContext) private var modelContext
   @Query private var dogs: [DogModel]
   @State private var showingNewDogScreen = false
-  
+  @State private var sortOrder = SortOrder.name
+  @State private var filter = ""
+
   var body: some View {
     NavigationStack {
-      List {
-        ForEach(dogs) { dog in
-          NavigationLink {
-            EditDogView(dog: dog)
-          } label: {
-            HStack {
-              Image(systemName: "dog")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-              Text(dog.name)
-            }
-            .font(.title)
-          }
-        }
-        .onDelete(perform:dogToDelete)
-      }
+      DogList(sortOrder: sortOrder, filterString: filter)
+        .searchable(text: $filter, prompt: Text("Filter on name or breed"))
       .navigationTitle("Good Dogs")
       .padding()
       .toolbar {
@@ -70,11 +58,19 @@ struct DogListView: View {
         NewDogView(name: "")
           .presentationDetents([.medium, .large])
       }
-    }
-  }
-  func dogToDelete(indexSet: IndexSet) {
-    for index in indexSet {
-      modelContext.delete(dogs[index])
+      .toolbar {
+        ToolbarItem {
+          Menu("Sort", systemImage: "arrow.up.arrow.down") {
+            Picker("Sort Dogs", selection: $sortOrder) {
+              ForEach(SortOrder.allCases) { sortOrder in
+                Text("Sort By: \(String(describing: sortOrder))").tag(sortOrder)
+              }
+            }
+            .buttonStyle(.bordered)
+            .pickerStyle(.inline)
+          }
+        }
+      }
     }
   }
 }

@@ -30,12 +30,35 @@
 /// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 /// THE SOFTWARE.
 
-import Foundation
+import SwiftUI
 
-class BreedModel {
-  var name: String
+struct EditBreedView: View {
+  @Environment(\.dismiss) private var dismiss
+  @State private var name: String = ""
   
-  init(name: String) {
-    self.name = name
-  }
+    var body: some View {
+      NavigationStack {
+        VStack {
+          GroupBox {
+            LabeledContent {
+              TextField("", text: $name)
+            } label: {
+              Text("Breed Name")
+                .foregroundStyle(.secondary)
+            }
+            Button ("Update Breed") {
+              dismiss()
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(name.isEmpty)
+            Spacer()
+          }
+          .navigationTitle("Edit Breed")
+        }
+      }
+    }
+}
+
+#Preview {
+  EditBreedView()
 }
