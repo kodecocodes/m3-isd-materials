@@ -42,6 +42,7 @@ struct EditDogView: View {
   @State private var color: String = ""
   @State private var breed: String = ""
   @State private var image: Data?
+  @State private var didAppear = false
   @State var selectedPhoto: PhotosPickerItem?
   // check if any values are changed
   var changed: Bool {
@@ -124,7 +125,7 @@ struct EditDogView: View {
       .navigationTitle(name)
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
-        if changed {
+        if didAppear && changed {
           Button("Update") {
             dismiss()
           }
