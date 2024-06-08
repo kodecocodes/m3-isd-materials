@@ -46,6 +46,7 @@ struct EditDogView: View {
   @State private var image: Data?
   @State private var showBreeds = false
   @State private var showParks = false
+  @State private var didAppear = false
   @State var selectedPhoto: PhotosPickerItem?
   // check if any values are changed
   var changed: Bool {
@@ -145,7 +146,7 @@ struct EditDogView: View {
        }
       }
       .toolbar {
-        if changed {
+        if didAppear && changed {
           Button("Update") {
             dog.name = name
             dog.age = age
