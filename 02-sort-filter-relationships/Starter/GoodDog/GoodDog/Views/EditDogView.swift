@@ -138,6 +138,8 @@ struct EditDogView: View {
         color = dog.color ?? ""
         breed = dog.breed ?? ""
         image = dog.image
+          
+        didAppear = true
       }
       .task(id: selectedPhoto) {
        // the photo picker has a protocol to convert to Data or whatever
