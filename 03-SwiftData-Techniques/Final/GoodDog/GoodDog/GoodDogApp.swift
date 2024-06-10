@@ -46,7 +46,8 @@ struct GoodDogApp: App {
   var container: ModelContainer {
     do {
       let schema = Schema([DogModel.self])
-      let container = try! ModelContainer(for: schema)
+      let config = ModelConfiguration("GoodDogs", schema: schema)
+      let container = try! ModelContainer(for: schema, configurations: config)
       //container.mainContext.autosaveEnabled = false
       // here's the undo
       container.mainContext.undoManager = UndoManager()
