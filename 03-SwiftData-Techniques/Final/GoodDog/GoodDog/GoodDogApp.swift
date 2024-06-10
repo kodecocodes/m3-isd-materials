@@ -44,27 +44,34 @@ struct GoodDogApp: App {
   
   @MainActor
   var container: ModelContainer {
-    let schema = Schema([DogModel.self])
-    let container = try! ModelContainer(for: schema) // we'll look at configuration later
-    //container.mainContext.autosaveEnabled = false
-    
-    // check that there are no dogs in the store
-    var dogFetchDescriptor = FetchDescriptor<DogModel>()
-    dogFetchDescriptor.fetchLimit = 1
-    guard try! container.mainContext.fetch(dogFetchDescriptor).count == 0 else { return container }
-    
-    let dogs = [
+    do {
+      let schema = Schema([DogModel.self])
+      let container = try! ModelContainer(for: schema)
+      //container.mainContext.autosaveEnabled = false
+      // here's the undo
+      container.mainContext.undoManager = UndoManager()
+      container.mainContext.undoManager?.levelsOfUndo = 2
+
+      // check that there are no dogs in the store
+      var dogFetchDescriptor = FetchDescriptor<DogModel>()
+      dogFetchDescriptor.fetchLimit = 1
+      guard try container.mainContext.fetch(dogFetchDescriptor).count == 0 else { return container }
+
+      let dogs = [
       DogModel(
         name: "Rover",
         breed: BreedModel(name: "Unknown Breed")
       )
     ]
-    
-    for dog in dogs {
-      container.mainContext.insert(dog)
+
+      for dog in dogs {
+        container.mainContext.insert(dog)
+      }
+
+      return container
+    } catch {
+      fatalError("Failed to create container")
     }
-    
-    return container
   }
   
   init() {

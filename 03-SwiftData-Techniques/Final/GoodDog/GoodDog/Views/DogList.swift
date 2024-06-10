@@ -38,6 +38,7 @@ struct DogList: View {
   @Query private var dogs: [DogModel]
   @State private var message = ""
   @State private var dogCount = 0
+  @Environment(\.undoManager) private var undoManager
   
   init(sortOrder: SortOrder, filterString: String) {
     let sortDescriptors: [SortDescriptor<DogModel>] = switch sortOrder {
@@ -85,7 +86,17 @@ struct DogList: View {
           ContentUnavailableView(message, systemImage: "dog")
         }
       }
-      .onAppear() {
+      .toolbar {
+        ToolbarItem {
+          Button("Undo", systemImage: "arrow.uturn.left") {
+            withAnimation {
+              modelContext.undoManager?.undo()
+            }
+          }
+          .disabled(modelContext.undoManager?.canUndo == false)
+        }
+      }
+      .task() {
         dogCount = dogs.count
         if dogCount == 0 {
           message = "Enter a dog."
