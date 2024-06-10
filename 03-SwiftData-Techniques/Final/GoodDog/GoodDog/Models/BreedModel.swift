@@ -35,7 +35,7 @@ import SwiftData
 
 @Model
 class BreedModel {
-  var name: String
+  @Attribute(.unique) var name: String
   var dogs: [DogModel]?
   
   init(name: String) {
