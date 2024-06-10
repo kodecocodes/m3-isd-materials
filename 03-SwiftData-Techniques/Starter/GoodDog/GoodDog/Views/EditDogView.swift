@@ -32,32 +32,37 @@
 
 import SwiftUI
 import PhotosUI
+import SwiftData
 
 struct EditDogView: View {
   
   @Environment(\.dismiss) private var dismiss
+  @Bindable var dog: DogModel
   @State private var name: String = ""
   @State private var age: Int = 0
   @State private var weight: Int = 0
   @State private var color: String = ""
-  @State private var breed: String = ""
+  @State private var breed: BreedModel?
   @State private var image: Data?
+  @State private var showBreeds = false
+  @State private var showParks = false
   @State private var didAppear = false
+
   @State var selectedPhoto: PhotosPickerItem?
   // check if any values are changed
   var changed: Bool {
-    name != name
-    || age != age
-    || weight != weight
-    || color != color
-    || breed != breed
-    || image != image
+    name != dog.name
+    || age != dog.age
+    || weight != dog.weight
+    || color != dog.color
+    || breed != dog.breed
+    || image != dog.image
   }
   
   var body: some View {
     ScrollView {
       VStack(alignment: .leading) {
-        // MARK: - Item
+        // MARK: - A Dog
         GroupBox {
           Section {
             // unwrap selectedPhotoData for preview
@@ -68,7 +73,7 @@ struct EditDogView: View {
                 .scaledToFit()
                 .frame(maxWidth: .infinity, maxHeight: 300)
             }
-            //Photo Picker
+            // MARK: - Photo Picker
             HStack {
               PhotosPicker(selection: $selectedPhoto,
                            matching: .images,
@@ -112,21 +117,70 @@ struct EditDogView: View {
               Text("Color")
                 .foregroundStyle(.secondary)
             }
-            LabeledContent {
-              TextField("", text: $breed)
-            } label: {
-              Text("Breed")
-                .foregroundStyle(.secondary)
+            // MARK: - Breeds
+            HStack {
+              BreedPicker(selectedBreed: $breed)
+              Button("Edit Breeds") {
+                showBreeds = true
+              }
+              .buttonStyle(.borderedProminent)
+            }
+            // MARK: - Parks
+            VStack {
+              Button("Parks", systemImage: "tree") {
+                showParks.toggle()
+              }
+              .buttonStyle(.borderedProminent)
+            }
+          }
+          VStack {
+            if let parks = dog.parks {
+              ViewThatFits {
+                ScrollView(.horizontal, showsIndicators: false) {
+                  ParkStackView(parks: parks)
+                }
+              }
             }
           }
         }
       }
+      .sheet(isPresented: $showBreeds) {
+        BreedListView()
+          .presentationDetents([.large])
+      }
+      .sheet(isPresented: $showParks) {
+        ParksView(dog: dog)
+          .presentationDetents([.large])
+      }      
       .textFieldStyle(.roundedBorder)
       .navigationTitle(name)
       .navigationBarTitleDisplayMode(.inline)
+      // MARK: - onAppear
+      .onAppear {
+        name = dog.name
+        age = dog.age ?? 0
+        weight = dog.weight ?? 0
+        color = dog.color ?? ""
+        breed = dog.breed
+        image = dog.image
+
+        didAppear = true
+      }
+      .task(id: selectedPhoto) {
+       // the photo picker has a protocol to convert to Data or whatever
+       if let data = try? await selectedPhoto?.loadTransferable(type: Data.self) {
+         image = data
+       }
+      }
       .toolbar {
         if didAppear && changed {
           Button("Update") {
+            dog.name = name
+            dog.age = age
+            dog.weight = weight
+            dog.color = color
+            dog.breed = breed
+            dog.image = image
             dismiss()
           }
           .buttonStyle(.borderedProminent)
@@ -137,5 +191,15 @@ struct EditDogView: View {
 }
 
 #Preview {
-  EditDogView()
+  let container = try! ModelContainer(for: DogModel.self)
+  let dog = DogModel(
+    name: "Mac",
+    age: 11,
+    weight: 90,
+    color: "Yellow",
+    image: UIImage(resource: .macintosh).pngData()!
+  )
+  
+  return EditDogView(dog: dog)
+    .modelContainer(container)
 }
