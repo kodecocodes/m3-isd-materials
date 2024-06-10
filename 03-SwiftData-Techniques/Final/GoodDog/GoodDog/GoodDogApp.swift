@@ -38,9 +38,34 @@ struct GoodDogApp: App {
     var body: some Scene {
         WindowGroup {
             DogListView()
-                .modelContainer(for: DogModel.self)
+                .modelContainer(container)
         }
     }
+  
+  @MainActor
+  var container: ModelContainer {
+    let schema = Schema([DogModel.self])
+    let container = try! ModelContainer(for: schema) // we'll look at configuration later
+    //container.mainContext.autosaveEnabled = false
+    
+    // check that there are no dogs in the store
+    var dogFetchDescriptor = FetchDescriptor<DogModel>()
+    dogFetchDescriptor.fetchLimit = 1
+    guard try! container.mainContext.fetch(dogFetchDescriptor).count == 0 else { return container }
+    
+    let dogs = [
+      DogModel(
+        name: "Rover",
+        breed: BreedModel(name: "Unknown Breed")
+      )
+    ]
+    
+    for dog in dogs {
+      container.mainContext.insert(dog)
+    }
+    
+    return container
+  }
   
   init() {
     print(URL.applicationSupportDirectory.path(percentEncoded: false))
