@@ -40,9 +40,10 @@ struct DogListView: View {
   @State private var showingNewDogScreen = false
   @State private var sortOrder = SortOrder.name
   @State private var filter = ""
+  @State private var selectedDog: DogModel?
 
   var body: some View {
-    NavigationStack {
+    NavigationSplitView(columnVisibility: .constant(.doubleColumn)) {
       DogList(sortOrder: sortOrder, filterString: filter)
         .searchable(text: $filter, prompt: Text("Filter on name or breed"))
       .navigationTitle("Good Dogs")
@@ -71,7 +72,17 @@ struct DogListView: View {
           }
         }
       }
+    } detail: {
+      if let selectedDog {
+        NavigationLink(value: selectedDog) {
+          EditDogView(dog: selectedDog)
+        }
+      } else {
+        Text("Select a dog!")
+      }
     }
+    .navigationSplitViewStyle(.balanced)
+    .frame(minWidth: 250)
   }
 }
 

@@ -143,6 +143,13 @@ struct EditDogView: View {
             }
           }
         }
+        .onChange(of: dog) {
+          name = dog.name
+          age = dog.age ?? 0
+          weight = dog.weight ?? 0
+          color = dog.color ?? ""
+          image = dog.image
+        }
       }
       .sheet(isPresented: $showBreeds) {
         BreedListView()
