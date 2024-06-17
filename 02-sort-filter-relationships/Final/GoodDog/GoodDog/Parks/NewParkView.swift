@@ -25,7 +25,7 @@ struct NewParkView: View {
         Button("Add Park") {
           let newPark = ParkModel(name: name)
           modelContext.insert(newPark)
-          try! modelContext.save()
+          try? modelContext.save()
           dismiss()
         }
         .buttonStyle(.borderedProminent)

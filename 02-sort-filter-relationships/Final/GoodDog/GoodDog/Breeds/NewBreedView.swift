@@ -49,7 +49,7 @@ struct NewBreedView: View {
         Button ("Add Breed") {
           let newBreed = BreedModel(name: name)
           modelContext.insert(newBreed)
-          try! modelContext.save()
+          try? modelContext.save()
           dismiss()
         }
         .buttonStyle(.borderedProminent)
