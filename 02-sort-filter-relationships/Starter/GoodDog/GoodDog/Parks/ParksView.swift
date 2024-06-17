@@ -41,9 +41,6 @@ struct ParksView: View {
   }
 }
 
-
-
-
 #Preview {
   ParksView()
 }
