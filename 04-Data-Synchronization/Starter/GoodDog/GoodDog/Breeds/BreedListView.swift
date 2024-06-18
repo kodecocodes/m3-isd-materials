@@ -53,7 +53,7 @@ struct BreedListView: View {
       }
       .navigationTitle("Breeds")
       .toolbar {
-        ToolbarItem(placement: .topBarTrailing) {
+        ToolbarItem(placement: .primaryAction) {
           Button("Add New Breed", systemImage: "plus") {
             showingNewBreedScreen = true
           }
