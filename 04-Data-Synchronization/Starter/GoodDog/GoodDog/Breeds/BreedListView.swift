@@ -64,7 +64,7 @@ struct BreedListView: View {
           .presentationDetents([.medium])
       }
       .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
+        ToolbarItem(placement: .primaryAction) {
           Button("Cancel") {
             dismiss()
           }

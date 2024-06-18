@@ -58,7 +58,7 @@ struct NewBreedView: View {
       }
       .navigationTitle("New Breed")
       .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
+        ToolbarItem(placement: .primaryAction) {
           Button("Cancel") {
             dismiss()
           }
