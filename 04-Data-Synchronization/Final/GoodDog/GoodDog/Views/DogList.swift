@@ -65,9 +65,18 @@ struct DogList: View {
                 EditDogView(dog: dog)
               } label: {
                 HStack {
-                  Image(systemName: "dog")
-                    .imageScale(.large)
-                    .foregroundStyle(.tint)
+                  if let photoData = dog.image, let uiImage = UIImage(data: photoData) {
+                    Image(uiImage: uiImage)
+                      .resizable()
+                      .scaledToFill()
+                      .frame(maxWidth: 80, maxHeight: 80)
+                      .clipShape(RoundedRectangle(cornerRadius: 5.0))
+                  } else {
+                    Image(systemName: "dog")
+                      .imageScale(.large)
+                      .frame(maxWidth: 80, maxHeight: 80)
+                      .foregroundStyle(.tint)
+                  }
                   VStack(alignment: .leading) {
                     Text(dog.name)
                       .font(.title2)
