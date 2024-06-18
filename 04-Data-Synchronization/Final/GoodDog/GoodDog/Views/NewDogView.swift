@@ -57,9 +57,11 @@ struct NewDogView: View {
         .disabled(name.isEmpty)
       }
       .navigationTitle("New Dog")
+      #if !os(macOS)
       .navigationBarTitleDisplayMode(.inline)
+      #endif
       .toolbar{
-        ToolbarItem (placement: .topBarLeading) {
+        ToolbarItem (placement: .primaryAction) {
           Button("Cancel") {
             dismiss()
           }

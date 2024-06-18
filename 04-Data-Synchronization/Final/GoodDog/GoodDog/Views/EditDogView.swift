@@ -68,10 +68,19 @@ struct EditDogView: View {
             // unwrap selectedPhotoData for preview
             if let imageData = image,
                let uiImage = UIImage(data: imageData) {
+#if os(macOS)
+              Image(nsImage: uiImage)
+                .resizable()
+                .scaledToFit()
+                .frame(maxWidth: .infinity,
+                       maxHeight: 300)
+#else
               Image(uiImage: uiImage)
                 .resizable()
                 .scaledToFit()
-                .frame(maxWidth: .infinity, maxHeight: 300)
+                .frame(maxWidth: .infinity, 
+                       maxHeight: 300)
+#endif
             }
             // MARK: - Photo Picker
             HStack {
@@ -161,8 +170,9 @@ struct EditDogView: View {
       }      
       .textFieldStyle(.roundedBorder)
       .navigationTitle(name)
+      #if !os(macOS)
       .navigationBarTitleDisplayMode(.inline)
-      // MARK: - onAppear
+      #endif      // MARK: - onAppear
       .onAppear {
         name = dog.name
         age = dog.age ?? 0
@@ -205,7 +215,7 @@ struct EditDogView: View {
       age: 11,
       weight: 90,
       color: "Yellow",
-      image: UIImage(resource: .macintosh).pngData()!
+      image: nil
     )
     
     return EditDogView(dog: dog)

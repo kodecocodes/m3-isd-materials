@@ -32,6 +32,10 @@
 
 import SwiftUI
 import SwiftData
+#if os(macOS)
+import Cocoa
+typealias UIImage = NSImage
+#endif
 
 struct DogList: View {
   @Environment(\.modelContext) private var modelContext
@@ -66,11 +70,19 @@ struct DogList: View {
               } label: {
                 HStack {
                   if let photoData = dog.image, let uiImage = UIImage(data: photoData) {
+#if os(macOS)
+                    Image(nsImage: uiImage)
+                      .resizable()
+                      .scaledToFill()
+                      .frame(maxWidth: 80, maxHeight: 80)
+                      .clipShape(RoundedRectangle(cornerRadius: 5.0))
+#else
                     Image(uiImage: uiImage)
                       .resizable()
                       .scaledToFill()
                       .frame(maxWidth: 80, maxHeight: 80)
                       .clipShape(RoundedRectangle(cornerRadius: 5.0))
+#endif
                   } else {
                     Image(systemName: "dog")
                       .imageScale(.large)

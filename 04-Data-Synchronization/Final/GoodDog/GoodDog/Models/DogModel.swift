@@ -85,11 +85,129 @@ extension DogModel {
       let kewBeach = ParkModel(name: "Kew Beach Off Leash Dog Park")
       let allan = ParkModel(name: "Allan Gardens")
       
-      let macDog = DogModel(name: "Mac", age: 11, weight: 90, color: "Yellow", breed: labrador, image: UIImage(resource: .macintosh).pngData()!, parks: [riverdale, withrow, kewBeach])
-      let sorcha = DogModel(name: "Sorcha", age: 1, weight: 40, color: "Yellow", breed: golden, image: UIImage(resource: .sorcha).pngData()!, parks: [greenwood, withrow])
-      let violet = DogModel(name: "Violet", age: 4, weight: 85, color: "Gray", breed: bouvier, image: UIImage(resource: .violet).pngData()!, parks: [riverdale, withrow, hideaway])
-      let kirby = DogModel(name: "Kirby", age: 11, weight: 95, color: "Fox Red", breed: labrador, image: UIImage(resource: .kirby).pngData()!, parks: [allan, greenwood, kewBeach])
-      let priscilla = DogModel(name: "Priscilla", age: 17, weight: 65, color: "White", breed: mixed, image: nil, parks: [])
+      #if !os(macOS)
+      let macDog = DogModel(
+        name: "Mac",
+        age: 11,
+        weight: 90,
+        color: "Yellow",
+        breed: labrador,
+        image: UIImage(resource: .macintosh).pngData()!,
+        parks: [
+          riverdale,
+          withrow,
+          kewBeach
+        ]
+      )
+      let sorcha = DogModel(
+        name: "Sorcha",
+        age: 1,
+        weight: 40,
+        color: "Yellow",
+        breed: golden,
+        image: UIImage(resource: .sorcha).pngData()!,
+        parks: [
+          greenwood,
+          withrow
+        ]
+      )
+      let violet = DogModel(
+        name: "Violet",
+        age: 4,
+        weight: 85,
+        color: "Gray",
+        breed: bouvier,
+        image: UIImage(resource: .violet).pngData()!,
+        parks: [
+          riverdale,
+          withrow,
+          hideaway
+        ]
+      )
+      let kirby = DogModel(
+        name: "Kirby",
+        age: 11,
+        weight: 95,
+        color: "Fox Red",
+        breed: labrador,
+        image: UIImage(resource: .kirby).pngData()!,
+        parks: [
+          allan,
+          greenwood,
+          kewBeach
+        ]
+      )
+      let priscilla = DogModel(
+        name: "Priscilla",
+        age: 17,
+        weight: 65,
+        color: "White",
+        breed: mixed,
+        image: nil,
+        parks: []
+      )
+      #else
+      let macDog = DogModel(
+        name: "Mac",
+        age: 11,
+        weight: 90,
+        color: "Yellow",
+        breed: labrador,
+        image: nil,
+        parks: [
+          riverdale,
+          withrow,
+          kewBeach
+        ]
+      )
+      let sorcha = DogModel(
+        name: "Sorcha",
+        age: 1,
+        weight: 40,
+        color: "Yellow",
+        breed: golden,
+        image: nil,
+        parks: [
+          greenwood,
+          withrow
+        ]
+      )
+      let violet = DogModel(
+        name: "Violet",
+        age: 4,
+        weight: 85,
+        color: "Gray",
+        breed: bouvier,
+        image: nil,
+        parks: [
+          riverdale,
+          withrow,
+          hideaway
+        ]
+      )
+      let kirby = DogModel(
+        name: "Kirby",
+        age: 11,
+        weight: 95,
+        color: "Fox Red",
+        breed: labrador,
+        image: nil,
+        parks: [
+          allan,
+          greenwood,
+          kewBeach
+        ]
+      )
+      let priscilla = DogModel(
+        name: "Priscilla",
+        age: 17,
+        weight: 65,
+        color: "White",
+        breed: mixed,
+        image: nil,
+        parks: []
+      )
+      #endif
       
       
       container.mainContext.insert(macDog)
