@@ -49,12 +49,13 @@ struct AllNewDogs: View {
       .navigationTitle("All Dogs")
       .toolbar {
         Button("", systemImage: "plus") {
-          let container = modelContext
-            .container
+          let container = modelContext.container
           Task.detached {
+            let backgroundActor = BackgroundActor(
+              modelContainer: container
+            )
             for i in 1...500 {
-              await
-              insertDog(name: "Rover \(i)")
+              await backgroundActor.insertDog(name: "Rover \(i)")
             }
           }
         }
@@ -71,6 +72,23 @@ struct AllNewDogs: View {
 
     try? modelContext.save()
   }
+  
+  @ModelActor
+  actor BackgroundActor {
+    func insertDog(name: String) {
+      modelContext.insert(
+        DogModel(
+          name: name,
+          breed: BreedModel(
+            name: "test"
+          )
+        )
+      )
+      
+      try? modelContext.save()
+    }
+  }
+  
 }
 
 #Preview {
