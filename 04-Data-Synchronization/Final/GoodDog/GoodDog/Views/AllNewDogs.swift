@@ -37,20 +37,43 @@ struct AllNewDogs: View {
   @Environment(\.modelContext) private var modelContext
   @Query private var dogs: [DogModel]
   
-    var body: some View {
-      NavigationStack {
-        List {
-          Section("Rover Total: \(dogs.count)") {
-            ForEach(dogs) { dog in
-              Text(dog.name)
+  var body: some View {
+    NavigationStack {
+      List {
+        Section("Rover Total: \(dogs.count)") {
+          ForEach(dogs) { dog in
+            Text(dog.name)
+          }
+        }
+      }
+      .navigationTitle("All Dogs")
+      .toolbar {
+        Button("", systemImage: "plus") {
+          let container = modelContext
+            .container
+          Task.detached {
+            for i in 1...500 {
+              await
+              insertDog(name: "Rover \(i)")
             }
           }
         }
       }
     }
+  }
+  func insertDog(name: String) async {
+    modelContext.insert(DogModel(
+        name: name,
+        breed: BreedModel(
+                name: "none")
+        )
+      )
+
+    try? modelContext.save()
+  }
 }
 
 #Preview {
     AllNewDogs()
-    .modelContainer(DogModel.preview)
+    .modelContainer(for: DogModel.self, inMemory: true)
 }
