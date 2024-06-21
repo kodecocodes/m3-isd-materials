@@ -49,7 +49,7 @@ struct NewBreedView: View {
         Button ("Add Breed") {
           let newBreed = BreedModel(name: name)
           modelContext.insert(newBreed)
-          try? modelContext.save()
+          try! modelContext.save()
           dismiss()
         }
         .buttonStyle(.borderedProminent)
@@ -58,7 +58,7 @@ struct NewBreedView: View {
       }
       .navigationTitle("New Breed")
       .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
+        ToolbarItem(placement: .primaryAction) {
           Button("Cancel") {
             dismiss()
           }

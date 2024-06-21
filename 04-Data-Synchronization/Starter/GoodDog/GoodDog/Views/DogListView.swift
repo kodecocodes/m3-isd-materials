@@ -31,43 +31,62 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import SwiftData
 
-struct NewBreedView: View {
-  @Environment(\.dismiss) var dismiss
-  @State var name = ""
-  @Environment(\.modelContext) private var modelContext
+struct DogListView: View {
   
+  @Environment(\.modelContext) private var modelContext
+  @Query private var dogs: [DogModel]
+  @State private var showingNewDogScreen = false
+  @State private var sortOrder = SortOrder.name
+  @State private var filter = ""
+  @State private var selectedDog: DogModel?
+
   var body: some View {
-    NavigationStack {
-      GroupBox {
-        LabeledContent {
-          TextField("Name", text: $name)
-        } label: {
-          Text("Name")
-            .foregroundStyle(.secondary)
-        }
-        Button ("Add Breed") {
-          let newBreed = BreedModel(name: name)
-          modelContext.insert(newBreed)
-          try? modelContext.save()
-          dismiss()
-        }
-        .buttonStyle(.borderedProminent)
-        .disabled(name.isEmpty)
-        Spacer()
-      }
-      .navigationTitle("New Breed")
+    NavigationSplitView(columnVisibility: .constant(.doubleColumn)) {
+      DogList(sortOrder: sortOrder, filterString: filter)
+        .searchable(text: $filter, prompt: Text("Filter on name or breed"))
+      .navigationTitle("Good Dogs")
+      .padding()
       .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
-          Button("Cancel") {
-            dismiss()
+        ToolbarItem(placement: .primaryAction) {
+          Button("Add New Dog", systemImage: "plus") {
+            showingNewDogScreen = true
           }
         }
       }
+      .sheet(isPresented: $showingNewDogScreen) {
+        NewDogView(name: "")
+          .presentationDetents([.medium, .large])
+      }
+      .toolbar {
+        ToolbarItem {
+          Menu("Sort", systemImage: "arrow.up.arrow.down") {
+            Picker("Sort Dogs", selection: $sortOrder) {
+              ForEach(SortOrder.allCases) { sortOrder in
+                Text("Sort By: \(String(describing: sortOrder))").tag(sortOrder)
+              }
+            }
+            .buttonStyle(.bordered)
+            .pickerStyle(.inline)
+          }
+        }
+      }
+    } detail: {
+      if let selectedDog {
+        NavigationLink(value: selectedDog) {
+          EditDogView(dog: selectedDog)
+        }
+      } else {
+        Text("Select a dog!")
+      }
     }
+    .navigationSplitViewStyle(.balanced)
+    .frame(minWidth: 250)
   }
 }
 
 #Preview {
-  NewBreedView()
+  DogListView()
+    .modelContainer(DogModel.preview)
 }

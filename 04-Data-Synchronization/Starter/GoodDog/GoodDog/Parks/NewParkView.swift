@@ -25,7 +25,7 @@ struct NewParkView: View {
         Button("Add Park") {
           let newPark = ParkModel(name: name)
           modelContext.insert(newPark)
-          try? modelContext.save()
+          try! modelContext.save()
           dismiss()
         }
         .buttonStyle(.borderedProminent)
@@ -33,7 +33,14 @@ struct NewParkView: View {
         Spacer()
       }
       .padding()
-      .navigationTitle("New Park") // this works on macOS
+      .navigationTitle("New Park") 
+      .toolbar {
+        ToolbarItem(placement: .cancellationAction) {
+          Button("Cancel") {
+            dismiss()
+          }
+        }
+      }
     }
   }
 }

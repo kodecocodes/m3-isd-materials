@@ -31,43 +31,55 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import SwiftData
 
-struct NewBreedView: View {
-  @Environment(\.dismiss) var dismiss
-  @State var name = ""
+struct BreedListView: View {
+  @Environment(\.dismiss) private var dismiss
+  @State private var showingNewBreedScreen = false
   @Environment(\.modelContext) private var modelContext
+  @Query(sort: \BreedModel.name) private var breeds: [BreedModel]
   
   var body: some View {
     NavigationStack {
-      GroupBox {
-        LabeledContent {
-          TextField("Name", text: $name)
-        } label: {
-          Text("Name")
-            .foregroundStyle(.secondary)
+      List{
+        ForEach(breeds) { breed in
+          NavigationLink{
+            EditBreedView(breed: breed)
+          } label: {
+            Text(breed.name)
+          }
         }
-        Button ("Add Breed") {
-          let newBreed = BreedModel(name: name)
-          modelContext.insert(newBreed)
-          try? modelContext.save()
-          dismiss()
-        }
-        .buttonStyle(.borderedProminent)
-        .disabled(name.isEmpty)
-        Spacer()
+        .onDelete(perform: breedToDelete)
       }
-      .navigationTitle("New Breed")
+      .navigationTitle("Breeds")
       .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
+        ToolbarItem(placement: .primaryAction) {
+          Button("Add New Breed", systemImage: "plus") {
+            showingNewBreedScreen = true
+          }
+        }
+      }
+      .sheet(isPresented: $showingNewBreedScreen) {
+        NewBreedView()
+          .presentationDetents([.medium])
+      }
+      .toolbar {
+        ToolbarItem(placement: .primaryAction) {
           Button("Cancel") {
             dismiss()
           }
         }
-      }
+    }
+    }
+  }
+  func breedToDelete(indexSet: IndexSet) {
+    for index in indexSet {
+      modelContext.delete(breeds[index])
     }
   }
 }
 
 #Preview {
-  NewBreedView()
+  BreedListView()
+    .modelContainer(DogModel.preview)
 }

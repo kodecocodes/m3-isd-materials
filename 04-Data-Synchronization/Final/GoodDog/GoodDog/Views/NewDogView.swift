@@ -32,33 +32,36 @@
 
 import SwiftUI
 
-struct NewBreedView: View {
-  @Environment(\.dismiss) var dismiss
-  @State var name = ""
+struct NewDogView: View {
   @Environment(\.modelContext) private var modelContext
+  @Environment(\.dismiss) private var dismiss
+  @State var name: String
   
   var body: some View {
-    NavigationStack {
-      GroupBox {
-        LabeledContent {
-          TextField("Name", text: $name)
-        } label: {
-          Text("Name")
-            .foregroundStyle(.secondary)
+    NavigationStack{
+      List {
+        Section {
+          VStack {
+            TextField("Dog Name", text: $name)
+          }
         }
-        Button ("Add Breed") {
-          let newBreed = BreedModel(name: name)
-          modelContext.insert(newBreed)
-          try? modelContext.save()
-          dismiss()
+        Section {
+          Button("Create") {
+            let newDog = DogModel(name: name)
+            modelContext.insert(newDog)
+            dismiss()
+          }
         }
+        .frame(maxWidth: .infinity, alignment: .trailing)
         .buttonStyle(.borderedProminent)
         .disabled(name.isEmpty)
-        Spacer()
       }
-      .navigationTitle("New Breed")
-      .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
+      .navigationTitle("New Dog")
+      #if !os(macOS)
+      .navigationBarTitleDisplayMode(.inline)
+      #endif
+      .toolbar{
+        ToolbarItem (placement: .primaryAction) {
           Button("Cancel") {
             dismiss()
           }
@@ -69,5 +72,6 @@ struct NewBreedView: View {
 }
 
 #Preview {
-  NewBreedView()
+  NewDogView(name: "Mac")
+    .modelContainer(DogModel.preview)
 }

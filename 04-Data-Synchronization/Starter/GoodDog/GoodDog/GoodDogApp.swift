@@ -31,43 +31,51 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import SwiftData
 
-struct NewBreedView: View {
-  @Environment(\.dismiss) var dismiss
-  @State var name = ""
-  @Environment(\.modelContext) private var modelContext
+@main
+struct GoodDogApp: App {
+    var body: some Scene {
+        WindowGroup {
+            DogListView()
+                .modelContainer(container)
+        }
+    }
   
-  var body: some View {
-    NavigationStack {
-      GroupBox {
-        LabeledContent {
-          TextField("Name", text: $name)
-        } label: {
-          Text("Name")
-            .foregroundStyle(.secondary)
-        }
-        Button ("Add Breed") {
-          let newBreed = BreedModel(name: name)
-          modelContext.insert(newBreed)
-          try? modelContext.save()
-          dismiss()
-        }
-        .buttonStyle(.borderedProminent)
-        .disabled(name.isEmpty)
-        Spacer()
+  @MainActor
+  var container: ModelContainer {
+    do {
+      let schema = Schema([DogModel.self])
+      let config = ModelConfiguration("GoodDogs", schema: schema)
+      let container = try! ModelContainer(for: schema, configurations: config)
+      //container.mainContext.autosaveEnabled = false
+      // here's the undo
+      container.mainContext.undoManager = UndoManager()
+      container.mainContext.undoManager?.levelsOfUndo = 2
+
+      // check that there are no dogs in the store
+      var dogFetchDescriptor = FetchDescriptor<DogModel>()
+      dogFetchDescriptor.fetchLimit = 1
+      guard try container.mainContext.fetch(dogFetchDescriptor).count == 0 else { return container }
+
+      let dogs = [
+      DogModel(
+        name: "Rover",
+        breed: BreedModel(name: "Unknown Breed")
+      )
+    ]
+
+      for dog in dogs {
+        container.mainContext.insert(dog)
       }
-      .navigationTitle("New Breed")
-      .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
-          Button("Cancel") {
-            dismiss()
-          }
-        }
-      }
+
+      return container
+    } catch {
+      fatalError("Failed to create container")
     }
   }
-}
-
-#Preview {
-  NewBreedView()
+  
+  init() {
+    print(URL.applicationSupportDirectory.path(percentEncoded: false))
+  }
 }
