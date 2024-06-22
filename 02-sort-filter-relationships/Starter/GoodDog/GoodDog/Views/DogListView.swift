@@ -55,12 +55,11 @@ struct DogListView: View {
             .font(.title)
           }
         }
-        .onDelete(perform:dogToDelete)
+        .onDelete(perform: dogToDelete)
       }
       .navigationTitle("Good Dogs")
-      .padding()
       .toolbar {
-        ToolbarItem(placement: .topBarTrailing) {
+        ToolbarItem(placement: .primaryAction) {
           Button("Add New Dog", systemImage: "plus") {
             showingNewDogScreen = true
           }
