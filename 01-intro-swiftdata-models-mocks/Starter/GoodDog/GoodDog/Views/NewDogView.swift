@@ -56,7 +56,7 @@ struct NewDogView: View {
       .navigationTitle("New Dog")
       .navigationBarTitleDisplayMode(.inline)
       .toolbar{
-        ToolbarItem (placement: .topBarLeading) {
+        ToolbarItem (placement: .cancellationAction) {
           Button("Cancel") {
 
           }
