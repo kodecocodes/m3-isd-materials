@@ -51,7 +51,6 @@ struct EditDogView: View {
     || weight != weight
     || color != color
     || breed != breed
-    || image != image
   }
   
   var body: some View {
