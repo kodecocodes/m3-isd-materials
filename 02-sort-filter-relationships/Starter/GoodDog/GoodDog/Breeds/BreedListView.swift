@@ -45,7 +45,7 @@ struct BreedListView: View {
       }
       .navigationTitle("Breeds")
       .toolbar {
-        ToolbarItem(placement: .topBarTrailing) {
+        ToolbarItem(placement: .primaryAction) {
           Button("Add New Breed", systemImage: "plus") {
             showingNewBreedScreen = true
           }
@@ -56,7 +56,7 @@ struct BreedListView: View {
           .presentationDetents([.medium])
       }
       .toolbar {
-        ToolbarItem(placement: .topBarLeading) {
+        ToolbarItem(placement: .cancellationAction) {
           Button("Cancel") {
             dismiss()
           }
