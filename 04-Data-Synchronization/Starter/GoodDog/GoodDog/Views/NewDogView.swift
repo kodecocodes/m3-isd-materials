@@ -33,7 +33,8 @@
 import SwiftUI
 
 struct NewDogView: View {
-  
+  @Environment(\.modelContext) private var modelContext
+  @Environment(\.dismiss) private var dismiss
   @State var name: String
   
   var body: some View {
@@ -46,7 +47,9 @@ struct NewDogView: View {
         }
         Section {
           Button("Create") {
-            
+            let newDog = DogModel(name: name)
+            modelContext.insert(newDog)
+            dismiss()
           }
         }
         .frame(maxWidth: .infinity, alignment: .trailing)
@@ -56,9 +59,9 @@ struct NewDogView: View {
       .navigationTitle("New Dog")
       .navigationBarTitleDisplayMode(.inline)
       .toolbar{
-        ToolbarItem (placement: .cancellationAction) {
+        ToolbarItem (placement: .primaryAction) {
           Button("Cancel") {
-
+            dismiss()
           }
         }
       }
@@ -68,4 +71,5 @@ struct NewDogView: View {
 
 #Preview {
   NewDogView(name: "Mac")
+    .modelContainer(DogModel.preview)
 }

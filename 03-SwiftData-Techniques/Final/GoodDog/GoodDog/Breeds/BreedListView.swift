@@ -31,41 +31,55 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import SwiftData
 
-struct NewDogView: View {
-  
-  @State var name: String
+struct BreedListView: View {
+  @Environment(\.dismiss) private var dismiss
+  @State private var showingNewBreedScreen = false
+  @Environment(\.modelContext) private var modelContext
+  @Query(sort: \BreedModel.name) private var breeds: [BreedModel]
   
   var body: some View {
-    NavigationStack{
-      List {
-        Section {
-          VStack {
-            TextField("Dog Name", text: $name)
+    NavigationStack {
+      List{
+        ForEach(breeds) { breed in
+          NavigationLink{
+            EditBreedView(breed: breed)
+          } label: {
+            Text(breed.name)
           }
         }
-        Section {
-          Button("Create") {
-            
-          }
-        }
-        .frame(maxWidth: .infinity, alignment: .trailing)
-        .buttonStyle(.borderedProminent)
-        .disabled(name.isEmpty)
+        .onDelete(perform: breedToDelete)
       }
-      .navigationTitle("New Dog")
-      .navigationBarTitleDisplayMode(.inline)
-      .toolbar{
-        ToolbarItem (placement: .cancellationAction) {
+      .navigationTitle("Breeds")
+      .toolbar {
+        ToolbarItem(placement: .topBarTrailing) {
+          Button("Add New Breed", systemImage: "plus") {
+            showingNewBreedScreen = true
+          }
+        }
+      }
+      .sheet(isPresented: $showingNewBreedScreen) {
+        NewBreedView()
+          .presentationDetents([.medium])
+      }
+      .toolbar {
+        ToolbarItem(placement: .topBarLeading) {
           Button("Cancel") {
-
+            dismiss()
           }
         }
-      }
+    }
+    }
+  }
+  func breedToDelete(indexSet: IndexSet) {
+    for index in indexSet {
+      modelContext.delete(breeds[index])
     }
   }
 }
 
 #Preview {
-  NewDogView(name: "Mac")
+  BreedListView()
+    .modelContainer(DogModel.preview)
 }

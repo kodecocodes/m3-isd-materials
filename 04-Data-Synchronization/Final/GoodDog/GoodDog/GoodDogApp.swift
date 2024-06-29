@@ -31,41 +31,51 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import SwiftData
 
-struct NewDogView: View {
-  
-  @State var name: String
-  
-  var body: some View {
-    NavigationStack{
-      List {
-        Section {
-          VStack {
-            TextField("Dog Name", text: $name)
-          }
+@main
+struct GoodDogApp: App {
+    var body: some Scene {
+        WindowGroup {
+            DogListView()
+                .modelContainer(container)
         }
-        Section {
-          Button("Create") {
-            
-          }
-        }
-        .frame(maxWidth: .infinity, alignment: .trailing)
-        .buttonStyle(.borderedProminent)
-        .disabled(name.isEmpty)
-      }
-      .navigationTitle("New Dog")
-      .navigationBarTitleDisplayMode(.inline)
-      .toolbar{
-        ToolbarItem (placement: .cancellationAction) {
-          Button("Cancel") {
+    }
+  
+  @MainActor
+  var container: ModelContainer {
+    do {
+      let schema = Schema([DogModel.self])
+      let config = ModelConfiguration("GoodDogs", schema: schema)
+      let container = try ModelContainer(for: schema, configurations: config)
+      //container.mainContext.autosaveEnabled = false
+      // here's the undo
+      container.mainContext.undoManager = UndoManager()
+      container.mainContext.undoManager?.levelsOfUndo = 2
 
-          }
-        }
+      // check that there are no dogs in the store
+      var dogFetchDescriptor = FetchDescriptor<DogModel>()
+      dogFetchDescriptor.fetchLimit = 1
+      guard try container.mainContext.fetch(dogFetchDescriptor).count == 0 else { return container }
+
+      let dogs = [
+      DogModel(
+        name: "Rover",
+        breed: BreedModel(name: "Unknown Breed")
+      )
+    ]
+
+      for dog in dogs {
+        container.mainContext.insert(dog)
       }
+
+      return container
+    } catch {
+      fatalError("Failed to create container")
     }
   }
-}
-
-#Preview {
-  NewDogView(name: "Mac")
+  
+  init() {
+    print(URL.applicationSupportDirectory.path(percentEncoded: false))
+  }
 }

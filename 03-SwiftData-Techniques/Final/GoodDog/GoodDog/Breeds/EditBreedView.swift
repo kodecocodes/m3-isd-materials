@@ -1,15 +1,15 @@
 /// Copyright (c) 2024 Kodeco Inc.
-///
+/// 
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
 /// in the Software without restriction, including without limitation the rights
 /// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 /// copies of the Software, and to permit persons to whom the Software is
 /// furnished to do so, subject to the following conditions:
-///
+/// 
 /// The above copyright notice and this permission notice shall be included in
 /// all copies or substantial portions of the Software.
-///
+/// 
 /// Notwithstanding the foregoing, you may not use, copy, modify, merge, publish,
 /// distribute, sublicense, create a derivative work, and/or sell copies of the
 /// Software in any work that is designed, intended, or marketed for pedagogical or
@@ -17,7 +17,7 @@
 /// or information technology.  Permission for such use, copying, modification,
 /// merger, publication, distribution, sublicensing, creation of derivative works,
 /// or sale is expressly withheld.
-///
+/// 
 /// This project and source code may use libraries or frameworks that are
 /// released under various Open-Source licenses. Use of those libraries and
 /// frameworks are governed by their own individual licenses.
@@ -31,41 +31,49 @@
 /// THE SOFTWARE.
 
 import SwiftUI
+import SwiftData
 
-struct NewDogView: View {
+struct EditBreedView: View {
+  @Environment(\.dismiss) private var dismiss
+  @State private var name: String = ""
+  @Bindable var breed: BreedModel
   
-  @State var name: String
+  var changed: Bool {
+    name != breed.name
+  }
   
-  var body: some View {
-    NavigationStack{
-      List {
-        Section {
-          VStack {
-            TextField("Dog Name", text: $name)
+    var body: some View {
+      NavigationStack {
+        VStack {
+          GroupBox {
+            LabeledContent {
+              TextField("", text: $name)
+            } label: {
+              Text("Breed Name")
+                .foregroundStyle(.secondary)
+            }
+            Button ("Update Breed") {
+              if changed {
+                breed.name = name
+              }
+              dismiss()
+            }
+            .buttonStyle(.borderedProminent)
+            .disabled(name.isEmpty)
+            Spacer()
           }
-        }
-        Section {
-          Button("Create") {
-            
-          }
-        }
-        .frame(maxWidth: .infinity, alignment: .trailing)
-        .buttonStyle(.borderedProminent)
-        .disabled(name.isEmpty)
-      }
-      .navigationTitle("New Dog")
-      .navigationBarTitleDisplayMode(.inline)
-      .toolbar{
-        ToolbarItem (placement: .cancellationAction) {
-          Button("Cancel") {
-
+          .navigationTitle("Edit Breed")
+          .task {
+            name = breed.name
           }
         }
       }
     }
-  }
 }
 
 #Preview {
-  NewDogView(name: "Mac")
+  let container = try! ModelContainer(for: DogModel.self)
+  let breed = BreedModel(name: "Labrador")
+  return EditBreedView(breed: breed)
+   .modelContainer(container)
 }
