@@ -48,7 +48,7 @@ struct DogListView: View {
       .navigationTitle("Good Dogs")
       .padding()
       .toolbar {
-        ToolbarItem(placement: .topBarTrailing) {
+        ToolbarItem(placement: .primaryAction) {
           Button("Add New Dog", systemImage: "plus") {
             showingNewDogScreen = true
           }
