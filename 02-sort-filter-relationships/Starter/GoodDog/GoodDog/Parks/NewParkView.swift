@@ -55,6 +55,13 @@ struct NewParkView: View {
       }
       .padding()
       .navigationTitle("New Park") // this works on macOS
+      .toolbar {
+        ToolbarItem(placement: .cancellationAction) {
+          Button("Cancel") {
+            dismiss()
+          }
+        }
+      }
     }
   }
 }
